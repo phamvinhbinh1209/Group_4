@@ -27,7 +27,7 @@
                     <h2>Log in</h2>
                     <div class="inputBox">
                         <input type="text" required="required" name="username">
-                        <span>Userame</span>
+                        <span>Username</span>
                         <i></i>
                     </div>
                     <div class="inputBox">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="links">
                         <a href="#">Forgot Password?</a>
-                        <a href="./signup.jsp">Signup</a>
+                        <a href="./signup.jsp">Sign up</a>
                     </div>
                     <input type="submit" value="Login">
 
