@@ -9,15 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
-/**
- *
- * @author ADMIN
- */
 public class DBConnection {
-    static Connection conn;
-    static PreparedStatement statement;
+    public static Connection conn;
+    public static PreparedStatement statement;
 
-    static void connect() throws SQLException, ClassNotFoundException {
+    public static Connection connect() throws SQLException, ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDataSource");
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setServerName(Config.SERVER);
@@ -28,9 +24,10 @@ public class DBConnection {
         ds.setEncrypt(false);
 
         conn = ds.getConnection();
+        return conn;
     }
 
-    static void disconnect() throws SQLException {
+    public static void disconnect() throws SQLException {
         conn.close();
     }
 }

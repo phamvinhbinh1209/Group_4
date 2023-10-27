@@ -5,6 +5,6 @@ public interface Config {
     String SERVER = "LAPTOP-55VM3BCG";
     String USER = "sa";
     String PASSWORD = "123";
-    String DATABASE_NAME = "";
+    String DATABASE_NAME = "ShoeStore";
     int PORT = 1433;
 }

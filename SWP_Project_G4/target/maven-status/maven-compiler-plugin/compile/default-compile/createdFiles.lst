@@ -3,6 +3,7 @@ Models\Size.class
 Controllers\HomeController.class
 Models\Cart.class
 Models\OrderDetail.class
+DAOs\AdminDAOs.class
 Models\Color.class
 Controllers\LoginController.class
 Models\Admin.class

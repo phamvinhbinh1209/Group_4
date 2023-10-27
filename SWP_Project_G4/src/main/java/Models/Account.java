@@ -40,6 +40,19 @@ public class Account {
         this.role = role;
     }
 
+    public Account(String avatar, String username, String password, String email, String firstName, String lastName, String gender, Date birthday, int role) {
+        this.avatar = avatar;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.role = role;
+    }
+    
+
     public int getAccountID() {
         return AccountID;
     }
