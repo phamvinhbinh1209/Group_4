@@ -1,0 +1,209 @@
+.jumbotron {
+    display: flex;
+}
+
+.logo {
+    width: 80%;
+}
+
+.textHeader p {
+    font-size: xxx-large;
+    font-weight: bold;
+    font-family: Istok Web;
+    margin: 0;
+}
+
+.input-group {
+    width: 25%;
+    height: 20%;
+}
+
+.search-icon {
+    position: absolute;
+    text-align: center;
+    margin-left: 7px;
+    margin-top: 6px;
+
+}
+
+.form-control {
+    padding-left: 30px;
+}
+
+.headerContent {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner img {
+    width: 100%;
+}
+
+.prd1-cont {
+    max-width: 1200px;
+}
+
+li {
+    padding-bottom: 10px;
+}
+
+.Filter {
+    padding-bottom: 20px;
+}
+
+.Filter h3 {
+    color: #f15e2c;
+}
+
+.thumbnail {
+    display: inline-block;
+    padding-top: 35px;
+    margin-bottom: 0px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: none;
+    /* border: #000 1px solid; */
+    border-radius: 0px;
+    position: relative;
+    width: 100%;
+}
+
+.thumbnail a {
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+a .caption {
+    color: black;
+}
+
+.thumbnail img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cont-item {
+    text-align: center;
+    width: 100%;
+}
+
+.cont-item img {
+    width: 100%;
+}
+
+.caption {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.caption h3 {
+    font-size: 16px;
+}
+
+.color {
+    font-weight: 400;
+}
+
+/*Footer*/
+
+#footer {
+    /* position: fixed;
+    bottom: 0;
+    right: 0;left: 0; */
+    padding: 50px 0 0px;
+    overflow: hidden;
+    /* background-color: #fff; */
+    width: 100%;
+    /* border-top: 1px solid #cccccc5c; */
+    background-color: #4c4c4c;
+    margin-top: 30px;
+}
+
+
+.copyright {
+    font-size: smaller;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px 10px;
+    color: #858484;
+    background: #4c4c4c;
+}
+
+.copyright p {
+    padding: 0;
+    margin: 0;
+}
+
+.introduction {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 80px;
+}
+
+.logo-name {
+    display: flex;
+    align-items: center;
+}
+
+.logo-name img {
+    width: 100%;
+}
+
+.logo-name h2 {
+    color: #fff;
+}
+
+.social-media {
+    color: #fff;
+    font-size: 24px;
+}
+
+.social-media i {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.contact .head {
+    font-weight: bold;
+    color: #fff;
+}
+
+.contact .head p {
+    color: #fff;
+    font-weight: 400;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.col-md-2 {
+    padding: 0;
+}
+
+.bocongthuong {
+    margin-top: 60px;
+}
+
+.bocongthuong img {
+    width: 70%;
+}
+
+.header {
+    background-color: black;
+    height: 50px;
+    margin-bottom: 20px;
+    display: flex;
+    color: white;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 30px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+    padding-right: 30px;
+}
+
+.dropdown-menu a {
+    color: black;
+}
