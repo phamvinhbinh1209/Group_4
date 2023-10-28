@@ -26,9 +26,6 @@ function toast( { title = '', message = '', type = "success", duration = 3000 })
         <h3>${title}</h3>
         <p>${message}</p>
          </div>
-         <div onclick="closeMessage()" class="toastClose">
-        <i class="fa-solid fa-xmark"></i>
-         </div>
         `;
         main.appendChild(toast);
         setTimeout(function () {

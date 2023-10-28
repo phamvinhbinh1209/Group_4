@@ -17,6 +17,7 @@
     margin-bottom: 16px;
     color: #fff;
     transition: all linear .5s;
+    border-radius: 10px;
 
 }
 
@@ -31,15 +32,15 @@
 }
 
 .success {
-    border-left: 4px solid rgb(41, 205, 15);
+    border-left: 6px solid rgb(41, 205, 15);
 }
 
 .error {
-    border-left: 4px solid rgb(218, 20, 20);
+    border-left: 6px solid rgb(218, 20, 20);
 }
 
 .warning {
-    border-left: 4px solid rgb(228, 228, 13);
+    border-left: 6px solid rgb(228, 228, 13);
 }
 
 .toastMessage.success {

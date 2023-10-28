@@ -17,7 +17,7 @@ public class DBConnection {
     static Connection conn;
     static PreparedStatement statement;
 
-    static void connect() throws SQLException, ClassNotFoundException {
+    public static Connection Connect() throws SQLException, ClassNotFoundException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDataSource");
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setServerName(Config.SERVER);
@@ -28,6 +28,7 @@ public class DBConnection {
         ds.setEncrypt(false);
 
         conn = ds.getConnection();
+        return conn;
     }
 
     static void disconnect() throws SQLException {

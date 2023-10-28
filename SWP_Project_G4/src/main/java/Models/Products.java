@@ -4,6 +4,7 @@
  */
 package Models;
 
+
 /**
  *
  * @author HP
@@ -73,6 +74,7 @@ public class Products {
 
     public int getPrice() {
         return Price;
+        
     }
 
     public void setPrice(int Price) {

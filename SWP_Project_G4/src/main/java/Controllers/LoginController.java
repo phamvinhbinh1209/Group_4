@@ -4,16 +4,20 @@
  */
 package Controllers;
 
+import DAOs.AccountDAO;
+import Service.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author HP
+ * @author ADMIN
  */
 public class LoginController extends HttpServlet {
 
@@ -34,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginController</title>");            
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +59,10 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String path = request.getRequestURI();
+        if (path.endsWith("/Login")) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -69,7 +76,33 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        MD5 md5 = new MD5();
+        try {
+            AccountDAO accDao = new AccountDAO();
+            
+            String username = request.getParameter("username");
+            String password = md5.getMd5(request.getParameter("password"));
+
+            if (accDao.checkUserExit(username, password) == 1) {
+                request.getSession().setAttribute("error", "Username or Password is incorrect!");
+                request.getRequestDispatcher("./login.jsp").forward(request, response);
+            } else if (accDao.checkUserExit(username, password) == 0) {
+                Cookie c = new Cookie("username", username);
+                c.setMaxAge(60 * 60);
+                response.addCookie(c);
+ 
+//                System.out.println("Cookie: " + c.getValue());
+                request.getSession().setAttribute("success", "Login success");
+                HttpSession session = request.getSession();
+                session.setAttribute("acc", accDao);
+                response.sendRedirect("/Home");
+            } else {
+                request.getSession().setAttribute("error", "Username or Password is incorrect!");
+                request.getRequestDispatcher("./login.jsp").forward(request, response);
+            }
+
+        } catch (Exception e) {
+        }
     }
 
     /**

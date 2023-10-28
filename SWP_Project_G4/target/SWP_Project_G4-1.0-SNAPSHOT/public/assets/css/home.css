@@ -1,19 +1,23 @@
 .jumbotron {
-    display: flex;   
+    display: flex;
 }
+
 .logo {
     width: 80%;
 }
+
 .textHeader p {
     font-size: xxx-large;
     font-weight: bold;
     font-family: Istok Web;
     margin: 0;
 }
+
 .input-group {
     width: 25%;
     height: 20%;
 }
+
 .search-icon {
     position: absolute;
     text-align: center;
@@ -21,16 +25,20 @@
     margin-top: 6px;
 
 }
+
 .form-control {
     padding-left: 30px;
 }
+
 .headerContent {
     justify-content: space-between;
     align-items: center;
 }
+
 .banner img {
     width: 100%;
 }
+
 .prd1-cont {
     max-width: 1200px;
 }
@@ -38,12 +46,15 @@
 li {
     padding-bottom: 10px;
 }
+
 .Filter {
     padding-bottom: 20px;
 }
+
 .Filter h3 {
-        color:#f15e2c;
+    color: #f15e2c;
 }
+
 .thumbnail {
     display: inline-block;
     padding-top: 35px;
@@ -56,23 +67,43 @@ li {
     position: relative;
     width: 100%;
 }
+
+.thumbnail a {
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+a .caption {
+    color: black;
+}
+
+.thumbnail img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
 .cont-item {
     text-align: center;
     width: 100%;
 }
+
 .cont-item img {
     width: 100%;
 }
+
 .caption {
     padding-top: 15px;
     text-align: center;
 }
+
 .caption h3 {
     font-size: 16px;
 }
+
 .color {
     font-weight: 400;
 }
+
 /*Footer*/
 
 #footer {
@@ -93,7 +124,7 @@ li {
     font-size: smaller;
     font-weight: bold;
     text-align: center;
-    padding:30px 10px;
+    padding: 30px 10px;
     color: #858484;
     background: #4c4c4c;
 }
@@ -106,7 +137,7 @@ li {
 .introduction {
     display: flex;
     flex-direction: column;
-    padding:10px 80px;
+    padding: 10px 80px;
 }
 
 .logo-name {
@@ -117,6 +148,7 @@ li {
 .logo-name img {
     width: 100%;
 }
+
 .logo-name h2 {
     color: #fff;
 }
@@ -146,12 +178,15 @@ li {
 .col-md-2 {
     padding: 0;
 }
+
 .bocongthuong {
     margin-top: 60px;
 }
+
 .bocongthuong img {
     width: 70%;
 }
+
 .header {
     background-color: black;
     height: 50px;
@@ -162,10 +197,13 @@ li {
     align-items: center;
     padding-right: 30px;
 }
+
 .header a {
     text-decoration: none;
     color: white;
     padding-right: 30px;
 }
 
-
+.dropdown-menu a {
+    color: black;
+}
