@@ -62,8 +62,12 @@ public class SignUpController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = request.getRequestURI();
-        if (path.endsWith("/SignUp")) {
-            request.getRequestDispatcher("/signup.jsp").forward(request, response);
+        if (path.endsWith("/SignUpController/Login")) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+        } else {
+            if (path.endsWith("/SignUpController/SignUp")) {
+                request.getRequestDispatcher("/signup.jsp").forward(request, response);
+            }
         }
     }
 
@@ -88,7 +92,6 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         if (request.getParameter("btnRegister") != null && !request.getParameter("btnRegister").equals("Submit")) {
             try {
                 String username = request.getParameter("username");
@@ -101,18 +104,17 @@ public class SignUpController extends HttpServlet {
                 AccountDAO accDao = new AccountDAO();
 
                 if (accDao.isUserExist(username)) {
-                    request.setAttribute("error", "Username Has Already Existed!");
-                    request.getRequestDispatcher("/signup.jsp").forward(request, response);
+                    request.setAttribute("wrong", "Username Has Already Existed!");
+                    response.sendRedirect("/SignUpController/SignUp");
 
                 } else {
                     accDAO.signUp(null, username, password, email, firstName, lastName, null, birthday, 0);
-                    response.sendRedirect("/Login");
+                    response.sendRedirect("/SignUpController/Login");
                 }
             } catch (Exception e) {
                 // TODO: handle exception
             }
         }
-
     }
 
     /**
