@@ -4,17 +4,12 @@
  */
 package Controllers;
 
-import DAOs.ProductDAO;
-import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +34,7 @@ public class HomeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");
+            out.println("<title>Servlet HomeController</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
@@ -60,7 +55,8 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path = request.getRequestURI();
+        //processRequest(request, response);
+       String path = request.getRequestURI();
         if (path.endsWith("/Home")) {
             request.getRequestDispatcher("home.jsp").forward(request, response);
         }
@@ -77,18 +73,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try {
-            ProductDAO dao = new ProductDAO();
-            ArrayList<Products> products = dao.getAllProducts();
-
-            request.setAttribute("listP", products);
-            request.getRequestDispatcher("./home.jsp").forward(request, response);
-
-        } catch (Exception ex) {
-            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        processRequest(request, response);
     }
 
     /**

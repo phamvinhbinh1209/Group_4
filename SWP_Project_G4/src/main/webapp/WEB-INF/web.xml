@@ -30,11 +30,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <url-pattern>/AdminController/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/User</url-pattern>
+        <url-pattern>/UserController/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>

@@ -1,5 +1,7 @@
 <%-- Document : home Created on : Oct 17, 2023, 9:30:26 PM Author : Ducnv --%>
 
+<%@page import="Models.Account"%>
+<%@page import="DAOs.AccountDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Models.Products"%>
@@ -18,6 +20,7 @@
     </head>
 
     <body>
+
         <header>
             <div class="header">
                 <a href="#">Order History</a>
@@ -39,7 +42,7 @@
                             Hello
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">bla bla</a>
+                            <a class="dropdown-item" href="/UserController/UserProfile/15">User Profile</a>
                             <a class="dropdown-item" href="#">ble ble</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Logout">Log out</a>
@@ -47,7 +50,9 @@
                     </div>
                 </c:if>
             </div>
+
         </header>
+
         <div class="jumbotron">
             <div class="container">
                 <div class="row headerContent">
@@ -66,7 +71,7 @@
                         <form action="/Search" method="post">
                             <input oninput="searchByName(this)" name="txt" value="${txtS}" type="text" class="form-control rounded" placeholder="Search"  />
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
@@ -82,7 +87,7 @@
                         <form action="/Search" method="post">
                             <input oninput="searchByName(this)" name="txt" type="search" class="form-control rounded" placeholder="Search" />
                         </form>
-                        
+
                     </div>
                     <div class="Filter">
                         <h3>PRICE</h3>
@@ -120,7 +125,7 @@
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="cbStatus" class="cb-item" type="checkbox" value="<299" />
+                                        <input name="cbStatus" class="cb-item" type="checkbox" value="<299k" />
                                         < 299k </label>
                                 </li>
                             </ul>
@@ -137,7 +142,7 @@
                             ArrayList<Products> products = dao.getAllProducts();
                             for (Products product : products) {
                         %>
-                        <div class="col-sm-6 col-md-4">
+                        <div class="col-sm-6 col-md-4 products" data-price="<%out.print(product.getPrice());%>">
                             <div class="thumbnail">
                                 <a href="#">
                                     <div class="cont-item">
@@ -152,8 +157,8 @@
                             </div>
                         </div>   
                         <%
-                                }
-                                %>
+                            }
+                            %>
                     </div>
                 </div>
             </div>
@@ -206,21 +211,21 @@
             <div class="copyright">
                 <p>Copyright by GR4 © 2023. All Rights Reserved.</p>
             </div>
-           
+
             <script>
                 // Đợi 5 giây trước khi xóa div
                 setTimeout(function () {
                     var messageDiv = document.getElementById('message');
                     messageDiv.parentNode.removeChild(messageDiv);
                 }, 5000);
-                
+
                 function searchByName(param) {
                     var txtSearch = param.value;
                     $.ajax({
                         url: "/Search",
                         type: "get",
                         data: {
-                            txt : txtSearch
+                            txt: txtSearch
                         },
                         success: function (data) {
                             var row = document.getElementById("content");
@@ -232,6 +237,6 @@
         </div>
         <%@include file="foot.jsp" %>
         <%@include file="popUpMessage.jsp" %>
+        <script src="<%out.print(request.getContextPath());%>/public/assets/js/sortPrice.js"></script>
     </body>
-
 </html>
