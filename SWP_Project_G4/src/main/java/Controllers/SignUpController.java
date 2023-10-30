@@ -61,13 +61,10 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String path = request.getRequestURI();
-        if (path.endsWith("/SignUpController/Login")) {
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        } else {
-            if (path.endsWith("/SignUpController/SignUp")) {
-                request.getRequestDispatcher("/signup.jsp").forward(request, response);
-            }
+     
+      String path = request.getRequestURI();
+        if (path.endsWith("/SignUp")) {
+            request.getRequestDispatcher("/signup.jsp").forward(request, response);
         }
     }
 
@@ -105,11 +102,11 @@ public class SignUpController extends HttpServlet {
 
                 if (accDao.isUserExist(username)) {
                     request.setAttribute("wrong", "Username Has Already Existed!");
-                    response.sendRedirect("/SignUpController/SignUp");
+                    response.sendRedirect("/SignUp");
 
                 } else {
                     accDAO.signUp(null, username, password, email, firstName, lastName, null, birthday, 0);
-                    response.sendRedirect("/SignUpController/Login");
+                    response.sendRedirect("/Login");
                 }
             } catch (Exception e) {
                 // TODO: handle exception

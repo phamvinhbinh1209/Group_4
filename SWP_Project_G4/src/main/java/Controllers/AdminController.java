@@ -102,7 +102,7 @@ public class AdminController extends HttpServlet {
                 }
             }
         }
-
+//===================================================================================================================
         if (path.endsWith("/AdminController/userList")) {
             request.getRequestDispatcher("/userList.jsp").forward(request, response);
         } else {

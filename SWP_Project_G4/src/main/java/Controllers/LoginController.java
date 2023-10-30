@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author HP
+ * @author ADMIN
  */
 public class LoginController extends HttpServlet {
 
@@ -38,10 +38,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginController</title>");
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet loginController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +59,9 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
         String path = request.getRequestURI();
-        if (path.endsWith("/LoginController/Home")) {
-            request.getRequestDispatcher("/home.jsp").forward(request, response);
+        if (path.endsWith("/Login")) {
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
 
@@ -77,11 +76,10 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         MD5 md5 = new MD5();
         try {
             AccountDAO accDao = new AccountDAO();
-
+            
             String username = request.getParameter("username");
             String password = md5.getMd5(request.getParameter("password"));
 
@@ -92,7 +90,7 @@ public class LoginController extends HttpServlet {
                 Cookie c = new Cookie("username", username);
                 c.setMaxAge(60 * 60);
                 response.addCookie(c);
-
+ 
 //                System.out.println("Cookie: " + c.getValue());
                 request.getSession().setAttribute("success", "Login success");
                 HttpSession session = request.getSession();
