@@ -144,21 +144,24 @@
                         %>
                         <div class="col-sm-6 col-md-4 products" data-price="<%out.print(product.getPrice());%>">
                             <div class="thumbnail">
-                                <a href="#">
-                                    <div class="cont-item">
-                                        <img src="<%out.print(product.getImage());%>" alt="" />
-                                    </div>
-                                    <div class="caption">
-                                        <h3 class="name"><%out.print(product.getProductName());%></h3>
-                                        <h3 class="color"><%out.print(product.getDescription());%></h3>
-                                        <h3 class="price"><%out.print(product.getPrice());%> VND</h3>
-                                    </div>
-                                </a>
+
+                                <div class="cont-item">
+                                    <img src="<%out.print(product.getImage());%>" alt="" />
+                                </div>
+                                <div class="caption">
+                                    <h3 class="name">
+                                        <a href="<%="UserController/ProductDetail/" + product.getProductID()%>"><%= product.getProductName()%></a>
+                                    </h3>
+
+                                    <h3 class="color"><%out.print(product.getDescription());%></h3>
+                                    <h3 class="price"><%out.print(product.getPrice());%> VND</h3>
+                                </div>
+
                             </div>
                         </div>   
                         <%
                             }
-                            %>
+                        %>
                     </div>
                 </div>
             </div>

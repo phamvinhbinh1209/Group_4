@@ -5,7 +5,9 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+import DAOs.ProductDAO;
 import Models.Account;
+import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -86,8 +88,28 @@ public class UserController extends HttpServlet {
                     Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            if (path.startsWith("/UserController/ProductDetail")) {
+            try {
+                String[] data = path.split("/");
+                int id = Integer.parseInt(data[data.length - 1]);
+                ProductDAO dao = new ProductDAO();
+                Products pr = dao.getProduct(id);
+                if (pr == null) {
+                    response.sendRedirect("/UserController/userHome");
+                } else {
+                    HttpSession session = (HttpSession) request.getSession();
+                    session.setAttribute("productInformation", pr);
+                    request.getRequestDispatcher("/product-detail.jsp").forward(request, response);
+                }
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        }
+        //========================================================================================
+        
     }
 
     /**
@@ -117,6 +139,31 @@ public class UserController extends HttpServlet {
                 Account acc = new Account(id, avatar, username, password, email, firstName, lastName, gender, birthday, role);
                 AccountDAO dao = new AccountDAO();
                 int ketqua = dao.UpdateAccount(acc);
+                if (ketqua == 0) {
+                    response.sendRedirect("/UserController/UserProfile");
+                } else {
+                    response.sendRedirect("UserController/userHome");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //===================================================================================
+        if (request.getParameter("btnAddToCart") != null && !request.getParameter("btnAddToCart").equals("AddToCart")) {
+            try {
+
+                String image = request.getParameter("Image");
+                String productName = request.getParameter("ProductName");
+                int price = Integer.parseInt(request.getParameter("Price"));
+                String description = request.getParameter("Description");
+              
+                Products pr = new Products(image,productName,price,description);
+                ProductDAO dao = new ProductDAO();
+                int ketqua = dao.UpdateProduct(pr);
                 if (ketqua == 0) {
                     response.sendRedirect("/UserController/UserProfile");
                 } else {
