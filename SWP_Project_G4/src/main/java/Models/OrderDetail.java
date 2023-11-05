@@ -15,21 +15,21 @@ public class OrderDetail {
     private int Price;
     private int ProductID;
     private int OrderID;
-    private int SizeID;
+    private int Size;
+
 
     public OrderDetail() {
     }
-    private int ColorID;
 
-    public OrderDetail(int OrderItemID, int Quantity, int Price, int ProductID, int OrderID, int SizeID, int ColorID) {
+    public OrderDetail(int OrderItemID, int Quantity, int Price, int ProductID, int OrderID, int Size) {
         this.OrderItemID = OrderItemID;
         this.Quantity = Quantity;
         this.Price = Price;
         this.ProductID = ProductID;
         this.OrderID = OrderID;
-        this.SizeID = SizeID;
-        this.ColorID = ColorID;
+        this.Size = Size;
     }
+
 
     public int getOrderItemID() {
         return OrderItemID;
@@ -71,25 +71,15 @@ public class OrderDetail {
         this.OrderID = OrderID;
     }
 
-    public int getSizeID() {
-        return SizeID;
+    public int getSize() {
+        return Size;
     }
 
-    public void setSizeID(int SizeID) {
-        this.SizeID = SizeID;
+    public void setSize(int Size) {
+        this.Size = Size;
     }
 
-    public int getColorID() {
-        return ColorID;
-    }
-
-    public void setColorID(int ColorID) {
-        this.ColorID = ColorID;
-    }
-
-    @Override
-    public String toString() {
-        return "OrderDetail{" + "OrderItemID=" + OrderItemID + ", Quantity=" + Quantity + ", Price=" + Price + ", ProductID=" + ProductID + ", OrderID=" + OrderID + ", SizeID=" + SizeID + ", ColorID=" + ColorID + '}';
-    }
+   
+ 
 
 }

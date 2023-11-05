@@ -11,35 +11,45 @@ import java.util.Date;
  * @author HP
  */
 public class Order {
-    private int ID;
+    private int OrderID;
     private Date Date;
     private String Address;
     private String Phone;
-    private String Product;
-    private int Price;
+    private int TotalPrice;
     private Date DeliveryDate;
     private String Status;
+    private int AccountID;
 
     public Order() {
     }
 
-    public Order(int ID, Date Date, String Address, String Phone, String Product, int Price, Date DeliveryDate, String Status) {
-        this.ID = ID;
+    public Order(int OrderID, Date Date, String Address, String Phone, int TotalPrice, Date DeliveryDate, String Status, int AccountID) {
+        this.OrderID = OrderID;
         this.Date = Date;
         this.Address = Address;
         this.Phone = Phone;
-        this.Product = Product;
-        this.Price = Price;
+        this.TotalPrice = TotalPrice;
+        this.DeliveryDate = DeliveryDate;
+        this.Status = Status;
+        this.AccountID = AccountID;
+    }
+
+    public Order(int OrderID, Date Date, String Address, String Phone, int TotalPrice, Date DeliveryDate, String Status) {
+        this.OrderID = OrderID;
+        this.Date = Date;
+        this.Address = Address;
+        this.Phone = Phone;
+        this.TotalPrice = TotalPrice;
         this.DeliveryDate = DeliveryDate;
         this.Status = Status;
     }
 
-    public int getID() {
-        return ID;
+    public int getOrderID() {
+        return OrderID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setOrderID(int OrderID) {
+        this.OrderID = OrderID;
     }
 
     public Date getDate() {
@@ -66,20 +76,12 @@ public class Order {
         this.Phone = Phone;
     }
 
-    public String getProduct() {
-        return Product;
+    public int getTotalPrice() {
+        return TotalPrice;
     }
 
-    public void setProduct(String Product) {
-        this.Product = Product;
-    }
-
-    public int getPrice() {
-        return Price;
-    }
-
-    public void setPrice(int Price) {
-        this.Price = Price;
+    public void setTotalPrice(int TotalPrice) {
+        this.TotalPrice = TotalPrice;
     }
 
     public Date getDeliveryDate() {
@@ -98,10 +100,20 @@ public class Order {
         this.Status = Status;
     }
 
+    public int getAccountID() {
+        return AccountID;
+    }
+
+    public void setAccountID(int AccountID) {
+        this.AccountID = AccountID;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "ID=" + ID + ", Date=" + Date + ", Address=" + Address + ", Phone=" + Phone + ", Product=" + Product + ", Price=" + Price + ", DeliveryDate=" + DeliveryDate + ", Status=" + Status + '}';
+        return "Order{" + "OrderID=" + OrderID + ", Date=" + Date + ", Address=" + Address + ", Phone=" + Phone + ", TotalPrice=" + TotalPrice + ", DeliveryDate=" + DeliveryDate + ", Status=" + Status + ", AccountID=" + AccountID + '}';
     }
+
+    
 
 
 }

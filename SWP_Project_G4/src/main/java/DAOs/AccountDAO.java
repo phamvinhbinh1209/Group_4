@@ -130,7 +130,9 @@ public class AccountDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                acc = new Account(rs.getInt("Account_ID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
+                acc = new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)
+                        , rs.getString(6), rs.getString(7), rs.getString(8)
+                        , rs.getDate(9), rs.getInt(10));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,5 +160,14 @@ public class AccountDAO {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ketqua;
+    }
+    
+     
+     
+     public static void main(String[] args) throws Exception {
+         AccountDAO a = new AccountDAO();
+         
+         Account ac = a.GetAccountUser("khang123");
+         System.out.println(ac);
     }
 }

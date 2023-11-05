@@ -1,0 +1,140 @@
+/* Apply a background color to the entire page */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    font-size: 20px; /* Increase the font size for the entire page */
+    line-height: 1.6; /* Increase line spacing */
+}
+
+/* Style the section titles */
+.section-title {
+    color: #333;
+    font-size: 28px; /* Increase section title font size */
+}
+
+/* Style the heading */
+h1 {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px; /* Increase heading font size */
+}
+
+/* Style the left side (product information) */
+div[style*="flex: 1; padding: 20px;"]:first-child {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: 10px; /* Add space between product and customer information divs */
+}
+
+/* Style the right side (customer information) */
+div[style*="flex: 1; padding: 20px;"]:last-child {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 18px; /* Increase font size for customer information */
+    margin-left: 10px; /* Add space between product and customer information divs */
+}
+
+/* Style the list of products */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style individual product items */
+li {
+    margin: 20px 0; /* Increase line spacing for product components */
+    color: #333;
+}
+
+/* Style order item components */
+.product-name {
+    font-size: 24px; /* Increase product name font size */
+}
+
+.product-price {
+    font-size: 20px; /* Increase product price font size */
+}
+
+.product-details {
+    font-size: 18px; /* Increase font size for size and quantity */
+}
+
+/* Style the total section */
+.total-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 24px; /* Increase font size for the total section */
+}
+
+/* Style the order button */
+.order-button {
+    background-color: #FFA500; /* Set the button background color to orange */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px; /* Increase font size for the order button */
+}
+
+/* Add some spacing for the button */
+.order-button {
+    margin-top: 20px;
+}
+
+/* Style the total price section */
+h2 {
+    color: #333;
+    font-size: 20px;
+}
+
+/* Style the form elements */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+    font-size: 18px; /* Increase font size for labels */
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 5px; /* Make input forms smaller */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 16px; /* Decrease font size for input forms */
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Increase font size for submit button */
+    }
+
+/* Add some spacing for buttons */
+input[type="submit"] {
+    margin-top: 20px; /* Increase the spacing below the submit button */
+}
+
+/* Style links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Hover effect on links */
+a:hover {
+    text-decoration: underline;
+}

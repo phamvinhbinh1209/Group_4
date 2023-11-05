@@ -59,7 +59,7 @@ public class ProductDAO {
                         resultSet.getInt("ProductID"),
                         resultSet.getString("Image"),
                         resultSet.getString("ProductName"),
-                        resultSet.getInt("CategoryID"),
+                        resultSet.getInt("CategoryID"),                    
                         resultSet.getString("BrandID"),
                         resultSet.getInt("Price"),
                         resultSet.getString("Description"));                       
@@ -81,7 +81,7 @@ public class ProductDAO {
                         resultSet.getInt("ProductID"),
                         resultSet.getString("Image"),
                         resultSet.getString("ProductName"),
-                        resultSet.getInt("CategoryID"),
+                        resultSet.getInt("CategoryID"),                       
                         resultSet.getString("BrandID"),
                         resultSet.getInt("Price"),
                         resultSet.getString("Description")); 
@@ -118,9 +118,7 @@ public class ProductDAO {
     }
     public static void main(String[] args) throws Exception {
         ProductDAO dao = new ProductDAO();
-        ArrayList<Products> products = dao.searchByName("RA");
-        for (Products o : products) {
-            System.out.println(o);
-        }
+        Products products = dao.getProduct(1);
+        System.out.println(products);
     }
 }

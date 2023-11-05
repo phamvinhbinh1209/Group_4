@@ -2,7 +2,7 @@ package Database;
 
 public interface Config {
  // tự chỉnh theo máy
-    String SERVER = "LAPTOP-55VM3BCG";
+    String SERVER = "DESKTOP-QMKN1IJ\\SQLEXPRESS";
     String USER = "sa";
     String PASSWORD = "123";
     String DATABASE_NAME = "ShoeStore";

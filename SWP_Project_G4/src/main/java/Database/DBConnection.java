@@ -26,7 +26,7 @@ public class DBConnection {
         ds.setPortNumber(Config.PORT);
         ds.setDatabaseName(Config.DATABASE_NAME);
         ds.setEncrypt(false);
-
+        ds.setTrustServerCertificate(true);
         conn = ds.getConnection();
         return conn;
     }
@@ -34,4 +34,6 @@ public class DBConnection {
     static void disconnect() throws SQLException {
         conn.close();
     }
+
+  
 }

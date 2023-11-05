@@ -118,7 +118,7 @@
                         %>
 
                         <form method="post" action="AdminController">
-                            <div class="mt-4">ID<input class="ml-2" readonly="true" type="text" name="ID" value="<%= od.getID()%>" id=""></div>
+                            <div class="mt-4">ID<input class="ml-2" readonly="true" type="text" name="ID" value="<%= od.getOrderID()%>" id=""></div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mt-4">Date<input class="ml-5" style="width: 200px; height: 30px;" type="date"

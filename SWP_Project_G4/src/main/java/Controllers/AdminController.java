@@ -65,11 +65,11 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         String path = request.getRequestURI();
 
-        if (path.endsWith("/AdminController/orderList")) {
+        if (path.endsWith("/Admin")) {
             // Hiển thị trang danh sách sản phẩm
             request.getRequestDispatcher("/orderList.jsp").forward(request, response);
         } else {
-            if (path.startsWith("/AdminController/deleteOrder/")) {
+            if (path.startsWith("/Admin/deleteOrder/")) {
                 try {
                     String[] data = path.split("/");
                     int id = Integer.parseInt(data[data.length - 1]);
@@ -77,20 +77,20 @@ public class AdminController extends HttpServlet {
                     dao.Delete(id);
 
                     // Sử dụng response.sendRedirect với context path
-                    response.sendRedirect("AdminController/orderList");
+                    response.sendRedirect("Admin/orderList");
 
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                if (path.startsWith("/AdminController/updateOrder")) {
+                if (path.startsWith("/Admin/updateOrder")) {
                     try {
                         String[] data = path.split("/");
                         int id = Integer.parseInt(data[data.length - 1]);
                         AdminDAOs dao = new AdminDAOs();
                         Order od = dao.GetOrder(id);
                         if (od == null) {
-                            response.sendRedirect("/AdminController/orderList");
+                            response.sendRedirect("/Admin/orderList");
                         } else {
                             HttpSession session = request.getSession();
                             session.setAttribute("orderInformation", od);
@@ -102,21 +102,21 @@ public class AdminController extends HttpServlet {
                 }
             }
         }
-
-        if (path.endsWith("/AdminController/userList")) {
+//===================================================================================================================
+        if (path.endsWith("/Admin/userList")) {
             request.getRequestDispatcher("/userList.jsp").forward(request, response);
         } else {
-            if (path.endsWith("/AdminController/addNewUser")) {
+            if (path.endsWith("/Admin/addNewUser")) {
                 request.getRequestDispatcher("/addNewUser.jsp").forward(request, response);
             } else {
-                if (path.startsWith("/AdminController/updateUser")) {
+                if (path.startsWith("/Admin/updateUser")) {
                     try {
                         String[] data = path.split("/");
                         int id = Integer.parseInt(data[data.length - 1]);
                         AdminDAOs dao = new AdminDAOs();
                         Account acc = dao.GetAccount(id);
                         if (acc == null) {
-                            response.sendRedirect("/AdminController/userList");
+                            response.sendRedirect("/Admin/userList");
                         } else {
                             HttpSession session = request.getSession();
                             session.setAttribute("userInformation", acc);
@@ -126,14 +126,14 @@ public class AdminController extends HttpServlet {
                         Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    if (path.startsWith("/AdminController/deleteUser/")) {
+                    if (path.startsWith("/Admin/deleteUser/")) {
                         try {
                             String[] data = path.split("/");
                             int id = Integer.parseInt(data[data.length - 1]);
                             AdminDAOs dao = new AdminDAOs();
                             dao.DeleteAccount(id);
                             // Sử dụng response.sendRedirect với context path
-                            response.sendRedirect("AdminController/userList");
+                            response.sendRedirect("Admin/userList");
 
                         } catch (SQLException | ClassNotFoundException ex) {
                             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,21 +159,20 @@ public class AdminController extends HttpServlet {
         //processRequest(request, response);
         if (request.getParameter("btnUpdateOrder") != null && !request.getParameter("btnUpdateOrder").equals("Submit")) {
             try {
-                int id = Integer.parseInt(request.getParameter("ID"));
+                int id = Integer.parseInt(request.getParameter("OrderID"));
                 Date date = Date.valueOf(request.getParameter("Date"));
                 String address = request.getParameter("Address");
                 String phone = request.getParameter("Phone");
-                String product = request.getParameter("Product");
-                int price = Integer.parseInt(request.getParameter("Price"));
+                int totalPrice = Integer.parseInt(request.getParameter("TotalPrice"));
                 Date deliveryDate = Date.valueOf(request.getParameter("DeliveryDate"));
                 String status = request.getParameter("Status");
-                Order od = new Order(id, date, address, phone, product, price, deliveryDate, status);
+                Order od = new Order(id, date, address, phone, totalPrice, deliveryDate, status);
                 AdminDAOs dao = new AdminDAOs();
                 int ketqua = dao.UpdateOrder(od);
                 if (ketqua == 0) {
-                    response.sendRedirect("/AdminController/updateOrder");
+                    response.sendRedirect("/Admin/updateOrder");
                 } else {
-                    response.sendRedirect("AdminController/orderList");
+                    response.sendRedirect("/Admin");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,9 +197,9 @@ public class AdminController extends HttpServlet {
                 AdminDAOs dao = new AdminDAOs();
                 int ketqua = dao.AddNew(acc);
                 if (ketqua == 0) {
-                    response.sendRedirect("/AdminController/addNewUser"); //redirect la tro ve trang addnew nhung xoa het du lieu(khong co du lieu) # f5 (f5 la load trang nhung co gui du lieu)
+                    response.sendRedirect("/Admin/addNewUser"); //redirect la tro ve trang addnew nhung xoa het du lieu(khong co du lieu) # f5 (f5 la load trang nhung co gui du lieu)
                 } else {
-                    response.sendRedirect("/AdminController/userList");
+                    response.sendRedirect("/Admin/userList");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,9 +224,9 @@ public class AdminController extends HttpServlet {
                 AdminDAOs dao = new AdminDAOs();
                 int ketqua = dao.UpdateAccount(acc);
                 if (ketqua == 0) {
-                    response.sendRedirect("/AdminController/updateUser");
+                    response.sendRedirect("/Admin/updateUser");
                 } else {
-                    response.sendRedirect("AdminController/userList");
+                    response.sendRedirect("Admin/userList");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);

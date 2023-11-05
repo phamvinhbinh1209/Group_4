@@ -43,28 +43,6 @@ public class AdminDAOs {
         return rs;
     }
 
-//    public void deleteOrders(List<Integer> orderIds) throws SQLException, ClassNotFoundException {
-//        try {
-//            String sql = "DELETE FROM OrderList WHERE order_id IN (";
-//            for (int i = 0; i < orderIds.size(); i++) {
-//                sql += "?";
-//                if (i < orderIds.size() - 1) {
-//                    sql += ", ";
-//                }
-//            }
-//            sql += ")";
-//
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//
-//            for (int i = 0; i < orderIds.size(); i++) {
-//                ps.setInt(i + 1, orderIds.get(i));
-//            }
-//
-//            ps.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
     public int Delete(int id) {
         String sql = "delete from OrderList where id=?";
         int ketqua = 0;
@@ -80,17 +58,17 @@ public class AdminDAOs {
     }
 
     public Order GetOrder(int id) {
-        String sql = "Select * From OrderList where ID=?";
+        String sql = "Select * From OrderList where OrderID=?";
         Order od = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                od = new Order(rs.getInt("ID"), rs.getDate("Date"), rs.getString("Address"), rs.getString("Phone"), rs.getString("Product"), rs.getInt("Price"), rs.getDate("DeliveryDate"), rs.getString("Status"));
+                od = new Order(rs.getInt("OrderID"), rs.getDate("OrderDate"), rs.getString("Address"), rs.getString("Phone"), rs.getInt("TotalPrice"), rs.getDate("DeliveryDate"), rs.getString("Status"), rs.getInt("AccountID"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return od;
     }
@@ -103,7 +81,7 @@ public class AdminDAOs {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                acc = new Account(rs.getInt("Account_ID"),rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
+                acc = new Account(rs.getInt("Account_ID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,17 +126,16 @@ public class AdminDAOs {
 
     public int UpdateOrder(Order newod) {
         int ketqua = 0;
-        String sql = "update OrderList set Date=?, Address=?, Phone=?, Product=?, Price=?, DeliveryDate=?, Status=? where ID=?";
+        String sql = "update OrderList set OrderDate=?, Address=?, Phone=?, TotalPrice=?, DeliveryDate=?, Status=? where OrderID=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, (Date) newod.getDate());
             ps.setString(2, newod.getAddress());
             ps.setString(3, newod.getPhone());
-            ps.setString(4, newod.getProduct());
-            ps.setInt(5, newod.getPrice());
-            ps.setDate(6, (Date) newod.getDeliveryDate());
-            ps.setString(7, newod.getStatus());
-            ps.setInt(8, newod.getID());
+            ps.setInt(4, newod.getTotalPrice());
+            ps.setDate(5, (Date) newod.getDeliveryDate());
+            ps.setString(6, newod.getStatus());
+            ps.setInt(7, newod.getOrderID());
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,7 +150,7 @@ public class AdminDAOs {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, acc.getAvatar());
             ps.setString(2, acc.getUsername());
-            ps.setString(3, acc.getPassword());
+            ps.setString(3, Service.MD5.getMd5(acc.getPassword()));//md5 nữa 
             ps.setString(4, acc.getEmail());
             ps.setString(5, acc.getFirstName());
             ps.setString(6, acc.getLastName());

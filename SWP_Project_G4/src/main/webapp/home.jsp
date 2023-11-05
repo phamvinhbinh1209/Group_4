@@ -1,5 +1,8 @@
 <%-- Document : home Created on : Oct 17, 2023, 9:30:26 PM Author : Ducnv --%>
 
+<%@page import="java.util.List"%>
+<%@page import="Models.Cart"%>
+<%@page import="DAOs.CartDAO"%>
 <%@page import="Models.Account"%>
 <%@page import="DAOs.AccountDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -20,29 +23,42 @@
     </head>
 
     <body>
-
+        <%  CartDAO cartDAO = new CartDAO();
+            AccountDAO accDAO = new AccountDAO();
+            String username = (String) request.getSession().getAttribute("acc");
+            Account acc = accDAO.GetAccountUser(username);
+            int cartCount = 0;
+            if(acc != null){
+            List<Cart> cartList = cartDAO.getCartsByUserID(acc.getAccountID());
+            for (Cart item : cartList) {
+                    cartCount++;
+                }
+            }    
+        %>
         <header>
             <div class="header">
-                <a href="#">Order History</a>
-                <a href="#">
+                <a href="/Cart">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Cart</span>
+                    <span>Cart (<%out.print(cartCount);%>)</span>
                 </a>
+
                 <c:if test="${sessionScope.acc == null}">
-                    <a href="./login.jsp" class="user">
+                    <a href="/Login" class="user">
                         <i class="fa-solid fa-user"></i>
                         <span>Login</span>
                     </a>
                 </c:if>
                 <c:if test="${sessionScope.acc != null}">
+
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
-                            Hello
+                            <img src="<%= acc.getAvatar()%>" style="width: 40px; height: 40px;"/>
+                            <%= acc.getUsername()%>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/UserController/UserProfile/15">User Profile</a>
+                            <a class="dropdown-item" href="/UserController/UserProfile/<%= acc.getAccountID()%>">User Profile</a>
+                            <a class="dropdown-item" href="/OrderController/OrderHistory/<%= acc.getAccountID()%>">Order History</a>
                             <a class="dropdown-item" href="#">ble ble</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Logout">Log out</a>
@@ -52,6 +68,7 @@
             </div>
 
         </header>
+
 
         <div class="jumbotron">
             <div class="container">
@@ -144,21 +161,24 @@
                         %>
                         <div class="col-sm-6 col-md-4 products" data-price="<%out.print(product.getPrice());%>">
                             <div class="thumbnail">
-                                <a href="#">
-                                    <div class="cont-item">
-                                        <img src="<%out.print(product.getImage());%>" alt="" />
-                                    </div>
-                                    <div class="caption">
-                                        <h3 class="name"><%out.print(product.getProductName());%></h3>
-                                        <h3 class="color"><%out.print(product.getDescription());%></h3>
-                                        <h3 class="price"><%out.print(product.getPrice());%> VND</h3>
-                                    </div>
-                                </a>
+                               
+                                <div class="cont-item">
+                                    <img src="<%out.print(product.getImage());%>" alt="" />
+                                </div>
+                                <div class="caption">
+                                    <h3 class="name">
+                                        <a href="UserController/ProductDetail/<%= product.getProductID()%>"><%= product.getProductName()%></a>
+                                    </h3>
+
+                                    <h3 class="color"><%out.print(product.getDescription());%></h3>
+                                    <h3 class="price"><%out.print(product.getPrice());%> VND</h3>
+                                </div>
+                            
                             </div>
                         </div>   
                         <%
                             }
-                            %>
+                         %>
                     </div>
                 </div>
             </div>
@@ -238,5 +258,6 @@
         <%@include file="foot.jsp" %>
         <%@include file="popUpMessage.jsp" %>
         <script src="<%out.print(request.getContextPath());%>/public/assets/js/sortPrice.js"></script>
+
     </body>
 </html>
