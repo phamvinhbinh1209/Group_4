@@ -1,7 +1,9 @@
 package DAOs;
 
 import Models.Account;
+import Models.ImportSource;
 import Models.Order;
+import Models.Product;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -163,4 +165,166 @@ public class AdminDAOs {
         }
         return kq;
     }
+<<<<<<< HEAD
 }
+=======
+
+    public ResultSet GetAllProduct() throws ClassNotFoundException {
+        ResultSet rs = null;
+        try {
+            String sql = "Select * From Product";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int DeleteProduct(int ID) {
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("delete from Product where ID=?");
+            ps.setInt(1, ID);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public int AddNewProduct(Product pro) {
+        String sql = "insert into Product values(?, ?, ?, ?, ?, ?, ?)";
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, pro.getID());
+            ps.setString(2, pro.getProductName());
+            ps.setString(3, pro.getBrand());
+            ps.setString(4, pro.getColor());
+            ps.setInt(5, pro.getSize());
+            ps.setInt(6, pro.getQuantity());
+            ps.setInt(7, pro.getPrice());
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public int UpdateProduct(Product pro) {
+        String sql = "update Product set ProductName=?, Brand=?, Color=?, Size=?, Quantity=?, Price=? where ID=?";
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getProductName());
+            ps.setString(2, pro.getBrand());
+            ps.setString(3, pro.getColor());
+            ps.setInt(4, pro.getSize());
+            ps.setInt(5, pro.getQuantity());
+            ps.setInt(6, pro.getPrice());
+            ps.setInt(7, pro.getID());
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public Product GetProduct(int ID) {
+        String sql = "Select * From Product where ID=?";
+        Product pr = null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                pr = new Product(rs.getInt("ID"), rs.getString("ProductName"), rs.getString("Brand"), rs.getString("Color"), rs.getInt("Size"), rs.getInt("Quantity"), rs.getInt("Price"), rs.getString("Picture"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pr;
+    }
+
+    public ResultSet GetImportSource() throws ClassNotFoundException {
+        ResultSet rs = null;
+        try {
+            String sql = "Select * From ImportSource";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+
+    public int DeleteImportSource(int ID) {
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("delete from ImportSource where ID=?");
+            ps.setInt(1, ID);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public int AddNewImportSource(ImportSource ip) {
+        String sql = "insert into ImportSource values(?, ?, ?, ?, ?, ?, ?, ?)";
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, ip.getID());
+            ps.setString(2, ip.getProductName());
+            ps.setString(3, ip.getBrand());
+            ps.setString(4, ip.getColor());
+            ps.setInt(5, ip.getSize());
+            ps.setInt(6, ip.getQuantity());
+            ps.setInt(7, ip.getPrice());
+            ps.setDate(8, (Date) ip.getDateBuy());
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public int UpdateImportSource(ImportSource ip) {
+        String sql = "update ImportSource set ProductName=?, Brand=?, Color=?, Size=?, Quantity=?, Price=?, DateBuy=? where ID=?";
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, ip.getProductName());
+            ps.setString(2, ip.getBrand());
+            ps.setString(3, ip.getColor());
+            ps.setInt(4, ip.getSize());
+            ps.setInt(5, ip.getQuantity());
+            ps.setInt(6, ip.getPrice());
+            ps.setDate(7, (Date) ip.getDateBuy());
+            ps.setInt(8, ip.getID());
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public ImportSource GetImportSource(int ID) {
+        String sql = "Select * From ImportSource where ID=?";
+        ImportSource ip = null;
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ip = new ImportSource(rs.getInt("ID"), rs.getString("ProductName"), rs.getString("Brand"), rs.getString("Color"), rs.getInt("Size"), rs.getInt("Quantity"), rs.getInt("Price"), rs.getDate("DateBuy"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ip;
+    }
+}
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0

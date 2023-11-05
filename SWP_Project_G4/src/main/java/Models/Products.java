@@ -22,6 +22,13 @@ public class Products {
     public Products() {
     }
 
+    public Products(String Image, String ProductName, int Price, String Description) {
+        this.Image = Image;
+        this.ProductName = ProductName;
+        this.Price = Price;
+        this.Description = Description;
+    }
+
     public Products(int ProductID, String Image, String ProductName, int CategoryID, String BrandID, int Price, String Description) {
         this.ProductID = ProductID;
         this.Image = Image;

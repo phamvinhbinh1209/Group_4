@@ -5,10 +5,15 @@
 package Controllers;
 
 import DAOs.AccountDAO;
+<<<<<<< HEAD
 import DAOs.CartDAO;
 import DAOs.ProductDAO;
 import Models.Account;
 import Models.Cart;
+=======
+import DAOs.ProductDAO;
+import Models.Account;
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
 import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -69,6 +74,7 @@ public class UserController extends HttpServlet {
             throws ServletException, IOException {
         // processRequest(request, response);
         String path = request.getRequestURI();
+<<<<<<< HEAD
 
         if (path.startsWith("/UserController/UserProfile")) {
             try {
@@ -91,6 +97,31 @@ public class UserController extends HttpServlet {
         }
 
         if (path.startsWith("/UserController/ProductDetail")) {
+=======
+        if (path.endsWith("/UserController/userHome")) {
+            request.getRequestDispatcher("/home.jsp").forward(request, response);
+        } else {
+            if (path.startsWith("/UserController/UserProfile")) {
+                try {
+                    String[] data = path.split("/");
+                    int id = Integer.parseInt(data[data.length - 1]);
+                    AccountDAO dao = new AccountDAO();
+                    Account acc = dao.GetAccount(id);
+                    if (acc == null) {
+                        response.sendRedirect("/UserController/userHome");
+                    } else {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("userInformation", acc);
+                        request.getRequestDispatcher("/userProfile.jsp").forward(request, response);
+                    }
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (path.startsWith("/UserController/ProductDetail")) {
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
             try {
                 String[] data = path.split("/");
                 int id = Integer.parseInt(data[data.length - 1]);
@@ -101,13 +132,18 @@ public class UserController extends HttpServlet {
                 } else {
                     HttpSession session = (HttpSession) request.getSession();
                     session.setAttribute("productInformation", pr);
+<<<<<<< HEAD
                     request.getRequestDispatcher("/productDetail.jsp").forward(request, response);
+=======
+                    request.getRequestDispatcher("/product-detail.jsp").forward(request, response);
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
                 }
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
+<<<<<<< HEAD
         }
         if (path.endsWith("/Login")) {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -115,7 +151,12 @@ public class UserController extends HttpServlet {
 
         if (path.endsWith("/Home")) {
             request.getRequestDispatcher("/home.jsp").forward(request, response);
+=======
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
         }
+        }
+        //========================================================================================
+        
     }
 
     /**
@@ -158,6 +199,7 @@ public class UserController extends HttpServlet {
                 Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+<<<<<<< HEAD
         //===================================================================================================
 
         if (request.getParameter("btnAddToCart") != null && request.getParameter("btnAddToCart").equals("AddToCart")) {
@@ -219,6 +261,31 @@ public class UserController extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserController.class
                         .getName()).log(Level.SEVERE, null, ex);
+=======
+        //===================================================================================
+        if (request.getParameter("btnAddToCart") != null && !request.getParameter("btnAddToCart").equals("AddToCart")) {
+            try {
+
+                String image = request.getParameter("Image");
+                String productName = request.getParameter("ProductName");
+                int price = Integer.parseInt(request.getParameter("Price"));
+                String description = request.getParameter("Description");
+              
+                Products pr = new Products(image,productName,price,description);
+                ProductDAO dao = new ProductDAO();
+                int ketqua = dao.UpdateProduct(pr);
+                if (ketqua == 0) {
+                    response.sendRedirect("/UserController/UserProfile");
+                } else {
+                    response.sendRedirect("UserController/userHome");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+>>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
             }
         }
     }
