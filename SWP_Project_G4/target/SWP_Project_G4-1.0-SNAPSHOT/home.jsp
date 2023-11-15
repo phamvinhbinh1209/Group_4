@@ -1,7 +1,8 @@
 <%-- Document : home Created on : Oct 17, 2023, 9:30:26 PM Author : Ducnv --%>
 
-<%@page import="java.util.List"%>
+<%@page import="Models.Size"%>
 <%@page import="Models.Cart"%>
+<%@page import="java.util.List"%>
 <%@page import="DAOs.CartDAO"%>
 <%@page import="Models.Account"%>
 <%@page import="DAOs.AccountDAO"%>
@@ -23,20 +24,23 @@
     </head>
 
     <body>
-        <%  CartDAO cartDAO = new CartDAO();
+        <%
+            CartDAO cartDAO = new CartDAO();
             AccountDAO accDAO = new AccountDAO();
             String username = (String) request.getSession().getAttribute("acc");
             Account acc = accDAO.GetAccountUser(username);
             int cartCount = 0;
-            if(acc != null){
-            List<Cart> cartList = cartDAO.getCartsByUserID(acc.getAccountID());
-            for (Cart item : cartList) {
+            if (acc != null) {
+                List<Cart> cartList = cartDAO.getCartsByUserID(acc.getAccountID());
+                for (Cart item : cartList) {
                     cartCount++;
                 }
-            }    
+            }
         %>
         <header>
             <div class="header">
+
+
                 <a href="/Cart">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>Cart (<%out.print(cartCount);%>)</span>
@@ -57,9 +61,8 @@
                             <%= acc.getUsername()%>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/UserController/UserProfile/<%= acc.getAccountID()%>">User Profile</a>
-                            <a class="dropdown-item" href="/OrderController/OrderHistory/<%= acc.getAccountID()%>">Order History</a>
-                            <a class="dropdown-item" href="#">ble ble</a>
+                            <a class="dropdown-item" href="/User/UserProfile/<%= acc.getAccountID()%>">User Profile</a>
+                            <a class="dropdown-item" href="/Order/OrderHistory/<%= acc.getAccountID()%>">Order History</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/Logout">Log out</a>
                         </div>
@@ -77,19 +80,11 @@
                         <img class="logo" src="./public/assets/imgs/Logo.png" alt="" />
                     </div>
 
-                    <div class="col-12 col-md-7 textHeader">
+                    <div class="col-12 col-md-10 textHeader">
                         <p>DISCOVER YOUR OWN STYLE</p>
                     </div>
 
-                    <div class="col-12 col-md-3 form-group">
-                        <span class="search-icon border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                        <form action="/Search" method="post">
-                            <input oninput="searchByName(this)" name="txt" value="${txtS}" type="text" class="form-control rounded" placeholder="Search"  />
-                        </form>
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -106,20 +101,22 @@
                         </form>
 
                     </div>
+
+
                     <div class="Filter">
                         <h3>PRICE</h3>
                         <div class="filet-price">
                             <ul class="list-unstyled">
                                 <li>
                                     <label>
-                                        <input name="cbStatus" class="cb-item" type="checkbox" value="500-599k" />
-                                        500 - 599k
+                                        <input name="cbStatus" class="cb-item" type="checkbox" value=">600k" />
+                                        > 600k
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="cbStatus" class="cb-item" type="checkbox" value=">600k" />
-                                        > 600k
+                                        <input name="cbStatus" class="cb-item" type="checkbox" value="500-599k" />
+                                        500 - 599k
                                     </label>
                                 </li>
                                 <li>
@@ -158,43 +155,30 @@
                             ProductDAO dao = new ProductDAO();
                             ArrayList<Products> products = dao.getAllProducts();
                             for (Products product : products) {
+                                List<Size> sizeList = cartDAO.getSizeListByProductID(product.getProductID());
+                                if (sizeList.size() != 0) {
                         %>
                         <div class="col-sm-6 col-md-4 products" data-price="<%out.print(product.getPrice());%>">
                             <div class="thumbnail">
-<<<<<<< HEAD
-                               
-=======
 
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
                                 <div class="cont-item">
                                     <img src="<%out.print(product.getImage());%>" alt="" />
                                 </div>
                                 <div class="caption">
                                     <h3 class="name">
-<<<<<<< HEAD
-                                        <a href="UserController/ProductDetail/<%= product.getProductID()%>"><%= product.getProductName()%></a>
-=======
-                                        <a href="<%="UserController/ProductDetail/" + product.getProductID()%>"><%= product.getProductName()%></a>
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
+                                        <a href="User/ProductDetail/<%= product.getProductID()%>"><%= product.getProductName()%></a>
                                     </h3>
 
                                     <h3 class="color"><%out.print(product.getDescription());%></h3>
                                     <h3 class="price"><%out.print(product.getPrice());%> VND</h3>
                                 </div>
-<<<<<<< HEAD
-                            
-=======
 
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
                             </div>
                         </div>   
                         <%
+                                }
                             }
-<<<<<<< HEAD
-                         %>
-=======
                         %>
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
                     </div>
                 </div>
             </div>
@@ -247,33 +231,34 @@
             <div class="copyright">
                 <p>Copyright by GR4 © 2023. All Rights Reserved.</p>
             </div>
-
-            <script>
-                // Đợi 5 giây trước khi xóa div
-                setTimeout(function () {
-                    var messageDiv = document.getElementById('message');
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }, 5000);
-
-                function searchByName(param) {
-                    var txtSearch = param.value;
-                    $.ajax({
-                        url: "/Search",
-                        type: "get",
-                        data: {
-                            txt: txtSearch
-                        },
-                        success: function (data) {
-                            var row = document.getElementById("content");
-                            row.innerHTML = data;
-                        }
-                    });
-                }
-            </script>
         </div>
-        <%@include file="foot.jsp" %>
-        <%@include file="popUpMessage.jsp" %>
-        <script src="<%out.print(request.getContextPath());%>/public/assets/js/sortPrice.js"></script>
 
-    </body>
+        <script>
+            // Đợi 5 giây trước khi xóa div
+            setTimeout(function () {
+                var messageDiv = document.getElementById('message');
+                messageDiv.parentNode.removeChild(messageDiv);
+            }, 5000);
+
+            function searchByName(param) {
+                var txtSearch = param.value;
+                $.ajax({
+                    url: "/Search",
+                    type: "get",
+                    data: {
+                        txt: txtSearch
+                    },
+                    success: function (data) {
+                        var row = document.getElementById("content");
+                        row.innerHTML = data;
+                    }
+                });
+            }
+        </script>
+    </div>
+    <%@include file="foot.jsp" %>
+    <%@include file="popUpMessage.jsp" %>
+    <script src="<%out.print(request.getContextPath());%>/public/assets/js/sortPrice.js"></script>
+
+</body>
 </html>

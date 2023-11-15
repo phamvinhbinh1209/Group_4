@@ -60,7 +60,7 @@ public class ProductDAO {
                         resultSet.getInt("ProductID"),
                         resultSet.getString("Image"),
                         resultSet.getString("ProductName"),
-                        resultSet.getInt("CategoryID"),                    
+                        resultSet.getInt("CategoryID"),
                         resultSet.getString("BrandID"),
                         resultSet.getInt("Price"),
                         resultSet.getString("Description"));
@@ -100,7 +100,7 @@ public class ProductDAO {
                         resultSet.getInt("ProductID"),
                         resultSet.getString("Image"),
                         resultSet.getString("ProductName"),
-                        resultSet.getInt("CategoryID"),                       
+                        resultSet.getInt("CategoryID"),
                         resultSet.getString("BrandID"),
                         resultSet.getInt("Price"),
                         resultSet.getString("Description"));
@@ -136,9 +136,16 @@ public class ProductDAO {
         return products;
     }
 
-    public static void main(String[] args) throws Exception {
-        ProductDAO dao = new ProductDAO();
-        Products products = dao.getProduct(1);
-        System.out.println(products);
+  public static void main(String[] args) throws Exception {
+    ProductDAO dao = new ProductDAO();
+    Products pr = dao.getProduct(3);
+    String image = pr.getImage();
+    
+    if (image != null) {
+        System.out.println("Image: " + image);
+    } else {
+        System.out.println("Không có dữ liệu hình ảnh.");
     }
+}
+
 }

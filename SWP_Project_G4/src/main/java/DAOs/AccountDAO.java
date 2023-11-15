@@ -6,6 +6,7 @@ package DAOs;
 
 import Database.DBConnection;
 import Models.Account;
+import Models.Order;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -76,6 +77,23 @@ public class AccountDAO {
         // return resutl
         return status;
     }
+    public boolean isEmailExist(String email) {
+        boolean ok = false;
+        try {
+            statement = conn.prepareStatement("select email from Account where email = ?");
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                if (resultSet.getString("email").equals(email)) {
+                    ok = true;
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ok;
+    }
 
     public void signUp(String avatar,
             String username,
@@ -106,14 +124,14 @@ public class AccountDAO {
     }
 
     public Account GetAccount(int id) {
-        String sql = "Select * From Account where Account_ID=?";
+        String sql = "Select * From Account where AccountID=?";
         Account acc = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                acc = new Account(rs.getInt("Account_ID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
+                acc = new Account(rs.getInt("AccountID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,9 +148,7 @@ public class AccountDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                acc = new Account(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)
-                        , rs.getString(6), rs.getString(7), rs.getString(8)
-                        , rs.getDate(9), rs.getInt(10));
+                acc = new Account(rs.getInt("AccountID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +158,7 @@ public class AccountDAO {
 
     public int UpdateAccount(Account newacc) {
         int ketqua = 0;
-        String sql = "update Account set avatar=?, username=?, password=?, email=?, firstName=?, lastName=?, gender=?, birthday=?, role=? where Account_ID=?";
+        String sql = "update Account set avatar=?, username=?, password=?, email=?, firstName=?, lastName=?, gender=?, birthday=?, role=? where AccountID=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, newacc.getAvatar());
@@ -161,13 +177,29 @@ public class AccountDAO {
         }
         return ketqua;
     }
-    
-     
-     
-     public static void main(String[] args) throws Exception {
-         AccountDAO a = new AccountDAO();
-         
-         Account ac = a.GetAccountUser("khang123");
-         System.out.println(ac);
+
+  public int checkRole(String username, int role) {
+        int status = -1;
+        try {
+            statement = conn.prepareStatement("select role from [Account] where username = ?");
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if(!resultSet.next()) {
+                status = 1;
+            } else {
+                int r = resultSet.getInt("role");
+                if (r == role) {
+                    status = 0;
+//                    System.out.println("customer");
+                } else {
+                    status = 2;
+//                    System.out.println("admin");
+                }
+            }
+               
+        } catch (Exception e) {
+        }
+        return status;
     }
 }

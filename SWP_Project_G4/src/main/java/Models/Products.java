@@ -22,9 +22,11 @@ public class Products {
     public Products() {
     }
 
-    public Products(String Image, String ProductName, int Price, String Description) {
+    public Products(String Image, String ProductName, int CategoryID, String BrandID, int Price, String Description) {
         this.Image = Image;
         this.ProductName = ProductName;
+        this.CategoryID = CategoryID;
+        this.BrandID = BrandID;
         this.Price = Price;
         this.Description = Description;
     }
@@ -38,8 +40,6 @@ public class Products {
         this.Price = Price;
         this.Description = Description;
     }
-
-   
 
     public int getProductID() {
         return ProductID;
@@ -83,7 +83,6 @@ public class Products {
 
     public int getPrice() {
         return Price;
-        
     }
 
     public void setPrice(int Price) {

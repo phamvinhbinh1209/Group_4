@@ -29,6 +29,10 @@
         <servlet-class>Controllers.SearchByAjax</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>Controllers.OrderController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CartController</servlet-name>
         <servlet-class>Controllers.CartController</servlet-class>
     </servlet>
@@ -38,11 +42,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
-        <url-pattern>/AdminController/*</url-pattern>
+        <url-pattern>/Admin/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/UserController/*</url-pattern>
+        <url-pattern>/User/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
@@ -66,6 +70,10 @@
     <servlet-mapping>
         <servlet-name>SearchByAjax</servlet-name>
         <url-pattern>/Search/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/Order/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CartController</servlet-name>

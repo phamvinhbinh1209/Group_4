@@ -44,17 +44,20 @@
 }
 
 .toastMessage.success {
-    background-color: #fff;
-    color: black;
+    background-color: rgb(72, 236, 72);
+    color: #fff;
+
     .toastIcon {
-        color: rgb(72, 236, 72);
+        color: #fff;
     }
 }
+
 .toastMessage.error {
-    background-color: #fff;
-    color: black;
+    background-color: rgb(227, 60, 60);
+    color: #fff;
+
     .toastIcon {
-        color: rgb(227, 60, 60);
+        color: #fff;
     }
 }
 .toastMessage.warning {

@@ -5,7 +5,6 @@
 package Controllers;
 
 import DAOs.AccountDAO;
-import Models.Account;
 import Service.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -80,27 +79,26 @@ public class LoginController extends HttpServlet {
         MD5 md5 = new MD5();
         try {
             AccountDAO accDao = new AccountDAO();
-            
+
             String username = request.getParameter("username");
             String password = md5.getMd5(request.getParameter("password"));
-            Account account = accDao.GetAccountUser(username);
+
             if (accDao.checkUserExit(username, password) == 1) {
                 request.getSession().setAttribute("error", "Username or Password is incorrect!");
                 request.getRequestDispatcher("./login.jsp").forward(request, response);
-            } else if (accDao.checkUserExit(username, password) == 0) {
-                Cookie c = new Cookie("username", username);
-                c.setMaxAge(60 * 60);
-                response.addCookie(c);
- 
-//                System.out.println("Cookie: " + c.getValue());
+            } else if (accDao.checkUserExit(username, password) == 0 && (accDao.checkRole(username, 0) == 0)) {
+                // Đăng nhập thành công cho vai trò người dùng
                 request.getSession().setAttribute("success", "Login success");
-                HttpSession session = request.getSession();
-                session.setAttribute("acc", username);
-                session.setAttribute("account",account);
+                request.getSession().setAttribute("acc", username); // Đặt tên người dùng trong session
                 response.sendRedirect("/Home");
+            } else if (accDao.checkUserExit(username, password) == 0 && (accDao.checkRole(username, 0) != 0)) {
+                // Đăng nhập thành công cho vai trò admin
+                request.getSession().setAttribute("success", "Login success");
+                request.getSession().setAttribute("acc", username); // Đặt tên người dùng trong session
+                response.sendRedirect("/Admin");
             } else {
                 request.getSession().setAttribute("error", "Username or Password is incorrect!");
-                request.getRequestDispatcher("./login.jsp").forward(request, response);
+                response.sendRedirect("./login.jsp"); // Tránh sử dụng forward để điều hướng lỗi
             }
 
         } catch (Exception e) {
@@ -108,6 +106,7 @@ public class LoginController extends HttpServlet {
     }
 
     /**
+     *
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description

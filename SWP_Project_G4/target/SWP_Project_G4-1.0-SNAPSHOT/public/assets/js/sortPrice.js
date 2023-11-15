@@ -35,3 +35,25 @@ function filterProducts() {
 
 // Thêm dòng sau để kích hoạt lọc sản phẩm khi trang web được nạp:
 filterProducts();
+
+  function searchByName(input) {
+        // Get the input value and convert it to lowercase for case-insensitive search
+        var searchText = input.value.toLowerCase();
+        
+        // Get all product elements
+        var products = document.querySelectorAll('.products');
+        
+        products.forEach(function(product) {
+            // Get the product name within this product element
+            var productName = product.querySelector('.name').textContent.toLowerCase();
+            
+            // Check if the product name contains the search text
+            if (productName.includes(searchText)) {
+                // Show the product if it matches the search criteria
+                product.style.display = 'block';
+            } else {
+                // Hide the product if it doesn't match the search criteria
+                product.style.display = 'none';
+            }
+        });
+    }

@@ -16,7 +16,7 @@ public class OrderDetail {
     private int ProductID;
     private int OrderID;
     private int Size;
-
+  
 
     public OrderDetail() {
     }
@@ -29,7 +29,6 @@ public class OrderDetail {
         this.OrderID = OrderID;
         this.Size = Size;
     }
-
 
     public int getOrderItemID() {
         return OrderItemID;
@@ -79,7 +78,10 @@ public class OrderDetail {
         this.Size = Size;
     }
 
-   
- 
+    @Override
+    public String toString() {
+        return "OrderDetail{" + "OrderItemID=" + OrderItemID + ", Quantity=" + Quantity + ", Price=" + Price + ", ProductID=" + ProductID + ", OrderID=" + OrderID + ", Size=" + Size + '}';
+    }
 
+   
 }

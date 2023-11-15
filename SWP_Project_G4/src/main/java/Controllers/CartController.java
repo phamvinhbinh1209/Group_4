@@ -97,8 +97,7 @@ public class CartController extends HttpServlet {
                  int cartID = Integer.parseInt(request.getParameter("CartID"));
                  int Quantity = Integer.parseInt(request.getParameter("Quantity"));
                  CartDAO cartDAO = new CartDAO();
-                 Cart cart = cartDAO.GetCartByID(cartID);
-                 
+                 Cart cart = cartDAO.GetCartByID(cartID);                
                  cart.setQuantity(Quantity);
                  int totalPrice = Quantity * cart.getPrice();
                  cart.setTotalPrice(totalPrice);

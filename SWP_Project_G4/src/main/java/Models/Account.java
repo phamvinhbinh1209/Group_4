@@ -27,6 +27,18 @@ public class Account {
         this.role=1;
     }
 
+    public Account(int AccountID, String avatar, String username, String password, String email, String firstName, String lastName, String gender, Date birthday) {
+        this.AccountID = AccountID;
+        this.avatar = avatar;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
+
     public Account(int AccountID, String avatar, String username, String password, String email, String firstName, String lastName, String gender, Date birthday, int role) {
         this.AccountID = AccountID;
         this.avatar = avatar;
@@ -139,3 +151,4 @@ public class Account {
     }
    
 }
+

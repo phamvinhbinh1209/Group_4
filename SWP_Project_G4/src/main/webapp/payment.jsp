@@ -25,12 +25,22 @@
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
         <link rel="stylesheet" type="text/css" href="<%out.print(request.getContextPath());%>/public/assets/css/payment.css" />
     </head>
 
     <body>
-        <h1>Payment Information</h1>
+<div class="d-flex align-items-center">
+    <a class="fa-solid fa-circle-left" href="/Cart" style="width: 50px; height: 50px;color: black;"></a>
+    <h1 class="mx-auto">Payment Information</h1>
+</div>
+
         <%
             ProductDAO productDAO = new ProductDAO();
             CartDAO cartDAO = new CartDAO();
@@ -42,11 +52,11 @@
                 int totalPrice = (int) session.getAttribute("totalPrice");
         %>
         <form action="Payment" method="post">
-            <div style="display: flex; ">
+            <div style="display: flex;">
 
-                <div style="flex: 1; padding: 20px; margin-left: 100px">
+                <div style="flex: 1; padding: 20px;">
                     <!-- Phần bên phải: Nhập thông tin khách hàng -->
-                    <h2 class="section-title">User Information</h2>
+                    <h2>User Information</h2>
                     <form action="process_payment.jsp" method="post">
                         <!-- Đây là ví dụ các trường thông tin khách hàng -->
                         <label for="name">Full Name:</label>
@@ -61,9 +71,8 @@
                         <input type="text" id="address" name="address" required><br><br>
                         <input type="hidden" name="timestamp" id="timestamp"><!-- comment -->
                         <input type="hidden" name="Status" id="status" value="Wait"></form>
-                </div>
-                <div style="flex: 1; padding: 20px; display: flex; flex-direction: column; margin-right: 100px">
-                    <h2 class="section-title">Order List</h2>
+                </div><div style="flex: 1; padding: 20px; display: flex; flex-direction: column;">
+                    <h2>Order</h2>
                     <ul>
                         <%
                             for (Cart item : cartList) {
@@ -71,22 +80,23 @@
                         %>
                         <li>
                             <div style="display: flex; justify-content: space-between;">
-                                <span class="product-name"><%= product.getProductName()%></span>
-                                <span class="product-price"><%= item.getPrice()%> VND</span>
+                                <span><%= product.getProductName()%></span>
+                                <span><%= item.getPrice()%> VND</span>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
-                                <span class="product-details">Size: <%= item.getSize()%></span> <span> x<%= item.getQuantity()%></span>
+                                <span>Size: <%= item.getSize()%></span>
+                                <span>x<%= item.getQuantity()%></span>
                             </div>
                         </li>
                         <%
                             }
                         %>
                     </ul>
-                    <div class="total-section" style="display: flex; justify-content: space-between; margin-top: 20px;">
-                        <span class="total-label">Total:</span>
-                        <span class="total-price"><%= totalPrice%> VND</span>
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                        <span>Total:</span>
+                        <span><%= totalPrice%> VND</span>
                     </div>
-                    <input type="submit" value="Order" name="btnOrder" class="order-button" style="width: 150px; height: 50px; margin: 20px auto;">
+                    <input type="submit" value="Order" name="btnOrder" style="width: 150px; height: 50px; margin: 20px auto;">
                 </div>
 
             </div>
@@ -96,6 +106,5 @@
         %>         
     </body>
     <script>
-
     </script>
 </html>

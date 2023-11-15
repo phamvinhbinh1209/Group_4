@@ -1,0 +1,140 @@
+.sidebar{
+    background-color: grey;
+    padding: 0.5rem;
+}
+
+.logo{
+    padding: 1rem;
+}
+
+.nav_list{
+
+}
+
+.nav_link{
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+    color: black;
+    transition: 0.2s;
+    width: 200px;
+}
+
+.nav_link:hover{
+    background: #4c4c4c;
+}
+
+.nav_icon{
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.inform{
+    text-align: center;
+    background: #FCDAD5;
+    padding: 0.6rem 0.7rem;
+    margin: 1.4rem;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+}
+
+.information{
+    background: white;
+}
+
+.account{
+    padding-top: 10px;
+    
+}
+
+.acc{
+    color: black;
+}
+
+.showinf{
+    border-bottom: 1px solid black;
+}
+
+.add-button{
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding: 0.4rem;
+    color: black;
+}
+
+.add{
+    margin-top: 9px;
+}
+
+.text-right{
+    display: flex;
+}
+
+.btn_search{
+    border-radius: 10px;
+    height: 30px;
+    margin-top: 6px;
+    margin-left: 3px;
+}
+
+.table_header th {
+    width: 12.5%; /* Chia đều 8 cột (100% / 8 = 12.5% cho mỗi cột) */
+    text-align: center; /* Căn giữa nội dung trong cột */
+    background-color: grey; /* Màu nền */
+    color: white; /* Màu chữ */
+}
+
+.table_body{
+    text-align: center;
+}
+
+.page-number{
+    border-radius: 8px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.display{
+    border-radius: 12px;
+    border: 2px solid black;
+}
+
+.active{
+    color: black;
+    padding-top: 20px;
+}
+
+.active_btn{
+    margin-top: 6px;
+}
+
+.activeips{
+    color: black;
+}
+
+.text-right{
+    align-items: center;
+}
+
+.pagination{
+    margin: 20px;
+}
+
+.title{
+    text-align: center;
+}
+
+.inputinf{
+    margin: 15px;
+    text-align: center;
+}
+
+.inputblock{
+    margin-left: 70px;
+}
+
+.submitinf{
+    margin-left: 328px;
+}

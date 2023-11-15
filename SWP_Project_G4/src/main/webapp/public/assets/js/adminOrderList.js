@@ -61,27 +61,33 @@ document.addEventListener("click", function (event) {
 
 
 //=============================Chức Năng Tìm Kiếm==============================================
-
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("tableSearch");
     filter = input.value.toUpperCase();
-    table = document.getElementById("table-body");
+    table = document.getElementById("product-table"); // Sửa ID này để phù hợp với bảng
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td");
+        var found = false;
         for (var j = 0; j < td.length; j++) {
             if (td[j]) {
                 txtValue = td[j].textContent || td[j].innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
+                    found = true;
                     break;
-                } else {
-                    tr[i].style.display = "none";
                 }
             }
+        }
+        if (found) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
         }
     }
 }
 
-document.getElementById("search-button").addEventListener("click", myFunction);
+// Sử dụng sự kiện "input" cho ô tìm kiếm để tự động tìm kiếm khi nhập
+document.getElementById("tableSearch").addEventListener("input", myFunction);
+
+

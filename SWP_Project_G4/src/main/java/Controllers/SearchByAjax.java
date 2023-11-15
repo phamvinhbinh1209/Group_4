@@ -34,7 +34,7 @@ public class SearchByAjax extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,18 +56,18 @@ public class SearchByAjax extends HttpServlet {
             ArrayList<Products> products = dao.searchByName(txtSearch);
             PrintWriter out = response.getWriter();
             for (Products o : products) {
-                out.println("<div class=\"col-sm-6 col-md-4\">\n"
+                out.println("<div class=\"col-sm-6 col-md-4 products\" data-price=\"" + o.getPrice() + "\">\n"
                         + "                            <div class=\"thumbnail\">\n"
-                        + "                                <a href=\"#\">\n"
                         + "                                    <div class=\"cont-item\">\n"
                         + "                                        <img src=\"" + o.getImage() + "\" alt=\"\" />\n"
                         + "                                    </div>\n"
                         + "                                    <div class=\"caption\">\n"
-                        + "                                        <h3 class=\"name\">" + o.getProductName() + "</h3>\n"
+                        + "                                    <h3 class=\"name\">\n"
+                        + "                                        <a href=\"UserController/ProductDetail/" + o.getProductID() + "\">" + o.getProductName() + "</a>\n"
+                        + "                                    </h3>\n"
                         + "                                        <h3 class=\"color\">" + o.getDescription() + "</h3>\n"
                         + "                                        <h3 class=\"price\">" + o.getPrice() + " VND</h3>\n"
                         + "                                    </div>\n"
-                        + "                                </a>\n"
                         + "                            </div>\n"
                         + "                        </div>");
             }

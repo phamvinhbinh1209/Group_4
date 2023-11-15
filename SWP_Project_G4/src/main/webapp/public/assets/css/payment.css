@@ -2,14 +2,8 @@
 body {
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
-    font-size: 20px; /* Increase the font size for the entire page */
+    font-size: 16px; /* Increase the font size for the entire page */
     line-height: 1.6; /* Increase line spacing */
-}
-
-/* Style the section titles */
-.section-title {
-    color: #333;
-    font-size: 28px; /* Increase section title font size */
 }
 
 /* Style the heading */
@@ -51,43 +45,6 @@ li {
     color: #333;
 }
 
-/* Style order item components */
-.product-name {
-    font-size: 24px; /* Increase product name font size */
-}
-
-.product-price {
-    font-size: 20px; /* Increase product price font size */
-}
-
-.product-details {
-    font-size: 18px; /* Increase font size for size and quantity */
-}
-
-/* Style the total section */
-.total-section {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    font-size: 24px; /* Increase font size for the total section */
-}
-
-/* Style the order button */
-.order-button {
-    background-color: #FFA500; /* Set the button background color to orange */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 24px; /* Increase font size for the order button */
-}
-
-/* Add some spacing for the button */
-.order-button {
-    margin-top: 20px;
-}
-
 /* Style the total price section */
 h2 {
     color: #333;
@@ -121,7 +78,7 @@ input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px; /* Increase font size for submit button */
-    }
+}
 
 /* Add some spacing for buttons */
 input[type="submit"] {

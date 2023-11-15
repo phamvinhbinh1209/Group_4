@@ -11,6 +11,7 @@ import java.util.Date;
  * @author HP
  */
 public class Order {
+
     private int OrderID;
     private Date Date;
     private String Address;
@@ -112,8 +113,5 @@ public class Order {
     public String toString() {
         return "Order{" + "OrderID=" + OrderID + ", Date=" + Date + ", Address=" + Address + ", Phone=" + Phone + ", TotalPrice=" + TotalPrice + ", DeliveryDate=" + DeliveryDate + ", Status=" + Status + ", AccountID=" + AccountID + '}';
     }
-
-    
-
 
 }

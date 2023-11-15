@@ -32,25 +32,6 @@
 
     <body>
         <div class="wrapper">
-            <!--<header class="header">
-                <div class="header-container">
-                    <div class="header-top">
-                        <img srcset="./public/logo.png" alt="" class="header-logo">
-
-                        <ul class="menu">
-                            <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
-                            <li class="menu-item"><a href="#!" class="menu-link">About Us</a></li>
-                        </ul>
-                        <div class="header-auth">
-                            <a href="#!" class="btn btn--white">Login</a>
-                            <a href="#!" class="btn btn--primary">Cart</a>
-                        </div>
-                    </div>
-                    <hr/>
-
-                </div>
-            </header>-->
-
             <main>
                 <div class="content">
                     <h1 class="page-content">SHOPPING CART</h1>
@@ -112,8 +93,8 @@
                             </tr>
                         </form>  
                         <%
-                                }
-                            
+                            }
+
                         %>
                     </table>
 
@@ -121,13 +102,13 @@
                         <table>                
                             <tr>
                                 <td>Total Price</td>
-                                <td><%= totalPrice %> VND</td>
+                                <td><%= totalPrice%> VND</td>
                             </tr>
                         </table>
                     </div>
-                   <%
-                       }
-                   %>
+                    <%
+                        }
+                    %>
                     <div class="continue-payment">
                         <a href="/Home">RETURN TO PURCHASE</a>
                         <a href="/Payment">CONTINUE PAYMENT</a>

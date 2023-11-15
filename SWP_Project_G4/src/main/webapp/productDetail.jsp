@@ -10,7 +10,7 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Home</title>
+        <title>Product Detail</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
             rel="stylesheet"
@@ -32,33 +32,10 @@
     </head>
     <body>
 
-        <div class="jumbotron">
-            <div class="container">
-                <div class="row headerContent">
-                    <div class="col-12 col-md-2">
-                        <img class="logo" src="./public/assets/imgs/Logo.png" alt="" />
-                    </div>
-
-                    <div class="col-12 col-md-7 textHeader">
-                        <p>DISCOVER YOUR OWN STYLE</p>
-                    </div>
-
-                    <div class="col-12 col-md-3 form-group">
-                        <span class="search-icon border-0" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                        <input
-                            type="search"
-                            class="form-control rounded"
-                            placeholder="Search"
-                            />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
+        
+       
         <div class="small-container">
-            <a class="fa-solid fa-circle-left" href="/Home" style="width: 50px; height: 50px;color: black;"></a>
+            <a class="fa-solid fa-circle-left" href="/Home" style="width: 80px; height: 80px;color: black; margin-left: 10px"></a>
             <%
                 CartDAO cartDAO = new CartDAO();
                 Products pr = (Products) session.getAttribute("productInformation");
@@ -75,7 +52,7 @@
                         <img name="Image" src="<%=pr.getImage()%>" width="50%" style="margin-left: 180px; margin-top: 50px;"> 
                     </div>
                     <div class="col-12 col-md-6">
-                        <h2 name="ProductID"><%= pr.getProductID()%></h2>
+                        <h2 style="display: none;" name="ProductID"><%= pr.getProductID()%></h2>
                         <h1 name="ProductName"><%= pr.getProductName()%></h1>
                         <h4 name="Price" >Price : <%= pr.getPrice()%> VND</h4>
                         <div class="select-container">
@@ -83,9 +60,11 @@
                                 <label for="size">Size</label>
                                 <select name="NumSize" id="size">
                                     <%   for (Size item : sizeList) {
+                                            if (cartDAO.getProductQuantity(item.getNumSize(), pr.getProductID()) > 0) {
                                     %>
                                     <option value="<%= item.getNumSize()%>"><%= item.getNumSize()%></option>
                                     <%
+                                            }
                                         }
                                     %>
                                 </select>
@@ -106,11 +85,20 @@
                                 </select>
                             </div>  
                         </div>   
+                        <%
+                            String message = (String) session.getAttribute("QuantityError");
 
+                            if (message != null) {
+                        %>
+                        <h4 style="color:red;"><%= message%></h4>
+                        <%
+                                session.removeAttribute("QuantityError");
+                            }
+                        %>
                         <br>
-                        <h3>Product Detail</h3>
+                        <h3>Product Description</h3>
                         <p name="Description"><%=pr.getDescription()%></p>
-                        <input type="submit" value="AddToCart" name="btnAddToCart">
+                        <input type="submit" value="Add To Cart" name="btnAddToCart">
                     </div>
                 </div>
             </form>
@@ -120,10 +108,8 @@
             <div class="contact row">
                 <div class="introduction col-md-4">
                     <div class="logo-name">
-                        <img
-                            src="https://ananas.vn/wp-content/themes/ananas/fe-assets/images/svg/Store.svg"
-                            alt=""
-                            />
+                        <img src="https://ananas.vn/wp-content/themes/ananas/fe-assets/images/svg/Store.svg"
+                             alt="" />
                     </div>
                 </div>
                 <div class="head help col-md-2">
@@ -152,10 +138,7 @@
                     <p>Paypal</p>
                     <p>Visa</p>
                     <div class="bocongthuong">
-                        <img
-                            src="http://online.gov.vn/Content/EndUser/LogoCCDVSaleNoti/logoSaleNoti.png"
-                            alt=""
-                            />
+                        <img src="http://online.gov.vn/Content/EndUser/LogoCCDVSaleNoti/logoSaleNoti.png" alt="" />
                     </div>
                 </div>
                 <div class="head info col-md-2">

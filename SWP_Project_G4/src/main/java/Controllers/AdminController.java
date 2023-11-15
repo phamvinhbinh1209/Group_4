@@ -8,7 +8,7 @@ import DAOs.AdminDAOs;
 import Models.Account;
 import Models.ImportSource;
 import Models.Order;
-import Models.Product;
+import Models.Products;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,87 +67,7 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         String path = request.getRequestURI();
 
-<<<<<<< HEAD
         if (path.endsWith("/Admin")) {
-=======
-        if (path.endsWith("/AdminController/Home")) {
-            request.getRequestDispatcher("/adminHome.jsp").forward(request, response);
-        } else {
-            if (path.endsWith("/AdminController/AddNewProduct")) {
-                request.getRequestDispatcher("/addNewProduct.jsp").forward(request, response);
-            } else if (path.startsWith("/AdminController/UpdateProduct")) {
-                try {
-                    String[] data = path.split("/");
-                    int id = Integer.parseInt(data[data.length - 1]);
-                    AdminDAOs dao = new AdminDAOs();
-                    Product pr = dao.GetProduct(id);
-                    if (pr == null) {
-                        response.sendRedirect("/AdminController/Home");
-                    } else {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("productInformation", pr);
-                        request.getRequestDispatcher("/updateProduct.jsp").forward(request, response);
-                    }
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                if (path.startsWith("/AdminController/DeleteProduct/")) {
-                    try {
-                        String[] data = path.split("/");
-                        int id = Integer.parseInt(data[data.length - 1]);
-                        AdminDAOs dao = new AdminDAOs();
-                        dao.DeleteProduct(id);
-                        response.sendRedirect("/AdminController/Home");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        }
-//==================================================================================================================================
-        if (path.endsWith("/AdminController/ImportSource")) {
-            request.getRequestDispatcher("/adminImportSource.jsp").forward(request, response);
-        } else {
-            if (path.endsWith("/AdminController/AddNewImportSource")) {
-                request.getRequestDispatcher("/addNewImportSource.jsp").forward(request, response);
-            } else if (path.startsWith("/AdminController/UpdateImportSource")) {
-                try {
-                    String[] data = path.split("/");
-                    int id = Integer.parseInt(data[data.length - 1]);
-                    AdminDAOs dao = new AdminDAOs();
-                    ImportSource ip = dao.GetImportSource(id);
-                    if (ip == null) {
-                        response.sendRedirect("/AdminController/ImportSource");
-                    } else {
-                        HttpSession session = request.getSession();
-                        session.setAttribute("importSourceInformation", ip);
-                        request.getRequestDispatcher("/updateImportSource.jsp").forward(request, response);
-                    }
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                if (path.startsWith("/AdminController/DeleteImportSource/")) {
-                    try {
-                        String[] data = path.split("/");
-                        int id = Integer.parseInt(data[data.length - 1]);
-                        AdminDAOs dao = new AdminDAOs();
-                        dao.DeleteImportSource(id);
-                        response.sendRedirect("/AdminController/ImportSource");
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        }
-
-        if (path.endsWith("/AdminController/orderList")) {
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
             // Hiển thị trang danh sách sản phẩm
             request.getRequestDispatcher("/orderList.jsp").forward(request, response);
         } else {
@@ -185,11 +105,7 @@ public class AdminController extends HttpServlet {
             }
         }
 //===================================================================================================================
-<<<<<<< HEAD
         if (path.endsWith("/Admin/userList")) {
-=======
-        if (path.endsWith("/AdminController/userList")) {
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
             request.getRequestDispatcher("/userList.jsp").forward(request, response);
         } else {
             if (path.endsWith("/Admin/addNewUser")) {
@@ -228,6 +144,87 @@ public class AdminController extends HttpServlet {
                 }
             }
         }
+        //=================================================================================================
+        if (path.endsWith("/Admin/WareHouse")) {
+            request.getRequestDispatcher("/adminHome.jsp").forward(request, response);
+        } else {
+            if (path.endsWith("/Admin/AddNewProduct")) {
+                request.getRequestDispatcher("/addNewProduct.jsp").forward(request, response);
+            } else if (path.startsWith("/Admin/UpdateProduct")) {
+                try {
+                    String[] data = path.split("/");
+                    int id = Integer.parseInt(data[data.length - 1]);
+                    AdminDAOs dao = new AdminDAOs();
+                    Products pr = dao.GetProducts(id);
+                    if (pr == null) {
+                        response.sendRedirect("/Admin/WareHouse");
+                    } else {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("productInformation", pr);
+                        request.getRequestDispatcher("/updateProduct.jsp").forward(request, response);
+                    }
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                if (path.startsWith("/Admin/DeleteProduct/")) {
+                    try {
+                        String[] data = path.split("/");
+                        int id = Integer.parseInt(data[data.length - 1]);
+                        AdminDAOs dao = new AdminDAOs();
+                        dao.DeleteProduct(id);
+                        response.sendRedirect("/Admin/WareHouse");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+
+        //=============================================================================================
+        if (path.endsWith("/Admin/ImportSource")) {
+            request.getRequestDispatcher("/adminImportSource.jsp").forward(request, response);
+        } else {
+            if (path.endsWith("/Admin/ImportSource")) {
+                request.getRequestDispatcher("/adminImportSource.jsp").forward(request, response);
+            } else {
+                if (path.endsWith("/Admin/AddNewImportSource")) {
+                    request.getRequestDispatcher("/addNewImportSource.jsp").forward(request, response);
+                } else if (path.startsWith("/Admin/UpdateImportSource")) {
+                    try {
+                        String[] data = path.split("/");
+                        int id = Integer.parseInt(data[data.length - 1]);
+                        AdminDAOs dao = new AdminDAOs();
+                        ImportSource ip = dao.GetImportSource(id);
+                        if (ip == null) {
+                            response.sendRedirect("/Admin/ImportSource");
+                        } else {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("importSourceInformation", ip);
+                            request.getRequestDispatcher("/updateImportSource.jsp").forward(request, response);
+                        }
+                    } catch (SQLException | ClassNotFoundException ex) {
+                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    if (path.startsWith("/Admin/DeleteImportSource/")) {
+                        try {
+                            String[] data = path.split("/");
+                            int id = Integer.parseInt(data[data.length - 1]);
+                            AdminDAOs dao = new AdminDAOs();
+                            dao.DeleteImportSource(id);
+                            response.sendRedirect("/Admin/ImportSource");
+                        } catch (SQLException ex) {
+                            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 // Redirect hoặc thực hiện các thao tác khác sau khi xóa đơn hàng            }
@@ -243,107 +240,6 @@ public class AdminController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-
-        if (request.getParameter("btnSubmitAdd") != null && request.getParameter("btnSubmitAdd").equals("Confirm")) {
-            try {
-                int id = Integer.parseInt(request.getParameter("paraID"));
-                String product_name = request.getParameter("paraProductName");
-                String brand = request.getParameter("paraBrand");
-                String color = request.getParameter("paraColor");
-                int size = Integer.parseInt(request.getParameter("paraSize"));
-                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
-                int price = Integer.parseInt(request.getParameter("paraPrice"));
-                String picture = request.getParameter("paraPicure");
-                Product p = new Product(id, product_name, brand, color, size, quantity, price, picture);
-                AdminDAOs dao = new AdminDAOs();
-                int kq = dao.AddNewProduct(p);
-                if (kq != 0) {
-                    response.sendRedirect("/AdminController/Home");
-                } else {
-                    response.sendRedirect("/AdminController/AddNewProduct");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (request.getParameter("btnSubmitUpdate") != null && request.getParameter("btnSubmitUpdate").equals("Confirm")) {
-            try {
-                int id = Integer.parseInt(request.getParameter("paraID"));
-                String product_name = request.getParameter("paraProductName");
-                String brand = request.getParameter("paraBrand");
-                String color = request.getParameter("paraColor");
-                int size = Integer.parseInt(request.getParameter("paraSize"));
-                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
-                int price = Integer.parseInt(request.getParameter("paraPrice"));
-                String picture = request.getParameter("paraPicture");
-                Product p = new Product(id, product_name, brand, color, size, quantity, price, picture);
-                AdminDAOs dao = new AdminDAOs();
-                int kq = dao.UpdateProduct(p);
-                if (kq != 0) {
-                    response.sendRedirect("/AdminController/Home");
-                } else {
-                    response.sendRedirect("/AdminController/UpdateProduct");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (request.getParameter("btnSubmitAddImportSource") != null && request.getParameter("btnSubmitAddImportSource").equals("Confirm")) {
-            try {
-                int id = Integer.parseInt(request.getParameter("paraID"));
-                String product_name = request.getParameter("paraProductName");
-                String brand = request.getParameter("paraBrand");
-                String color = request.getParameter("paraColor");
-                int size = Integer.parseInt(request.getParameter("paraSize"));
-                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
-                int price = Integer.parseInt(request.getParameter("paraPrice"));
-                Date date_buy = Date.valueOf(request.getParameter("paraDateBuy"));
-                ImportSource ip = new ImportSource(id, product_name, brand, color, size, quantity, price, date_buy);
-                AdminDAOs dao = new AdminDAOs();
-                int kq = dao.AddNewImportSource(ip);
-                if (kq != 0) {
-                    response.sendRedirect("/AdminController/ImportSource");
-                } else {
-                    response.sendRedirect("/AdminController/AddNewImportSource");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (request.getParameter("btnSubmitUpdateImportSource") != null && request.getParameter("btnSubmitUpdateImportSource").equals("Confirm")) {
-            try {
-                int id = Integer.parseInt(request.getParameter("paraID"));
-                String product_name = request.getParameter("paraProductName");
-                String brand = request.getParameter("paraBrand");
-                String color = request.getParameter("paraColor");
-                int size = Integer.parseInt(request.getParameter("paraSize"));
-                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
-                int price = Integer.parseInt(request.getParameter("paraPrice"));
-                Date date_buy = Date.valueOf(request.getParameter("paraDateBuy"));
-                ImportSource ip = new ImportSource(id, product_name, brand, color, size, quantity, price, date_buy);
-                AdminDAOs dao = new AdminDAOs();
-                int kq = dao.UpdateImportSource(ip);
-                if (kq != 0) {
-                    response.sendRedirect("/AdminController/ImportSource");
-                } else {
-                    response.sendRedirect("/AdminController/UpdateImportSource");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
         if (request.getParameter("btnUpdateOrder") != null && !request.getParameter("btnUpdateOrder").equals("Submit")) {
             try {
                 int id = Integer.parseInt(request.getParameter("OrderID"));
@@ -358,13 +254,19 @@ public class AdminController extends HttpServlet {
                 int ketqua = dao.UpdateOrder(od);
                 if (ketqua == 0) {
                     response.sendRedirect("/Admin/updateOrder");
+                    request.getSession().setAttribute("error", "Update Order failed!");
                 } else {
                     response.sendRedirect("/Admin");
+                    request.getSession().setAttribute("success", "Update Order Successfully!");
+
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
         //=====================================================================================================
@@ -385,15 +287,22 @@ public class AdminController extends HttpServlet {
                 int ketqua = dao.AddNew(acc);
                 if (ketqua == 0) {
                     response.sendRedirect("/Admin/addNewUser"); //redirect la tro ve trang addnew nhung xoa het du lieu(khong co du lieu) # f5 (f5 la load trang nhung co gui du lieu)
+                    request.getSession().setAttribute("error", "Add New User failed!");
                 } else {
                     response.sendRedirect("/Admin/userList");
+                    request.getSession().setAttribute("success", "Add New User successfully!");
+
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
+
         //=====================================================================================================
         if (request.getParameter("btnUpdateUser") != null && !request.getParameter("btnUpdateUser").equals("Submit")) {
             try {
@@ -412,13 +321,130 @@ public class AdminController extends HttpServlet {
                 int ketqua = dao.UpdateAccount(acc);
                 if (ketqua == 0) {
                     response.sendRedirect("/Admin/updateUser");
+                    request.getSession().setAttribute("error", "Update failed!");
                 } else {
                     response.sendRedirect("Admin/userList");
+                    request.getSession().setAttribute("success", "Update successully");
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //==========================================================================================================
+        if (request.getParameter("btnSubmitAddProduct") != null && request.getParameter("btnSubmitAddProduct").equals("Confirm")) {
+            try {
+
+                String image = request.getParameter("paraImage");
+                String productname = request.getParameter("paraProductName");
+                int categoryID = 1;
+                String brandid = "1";
+                int price = Integer.parseInt(request.getParameter("paraPrice"));
+                String description = request.getParameter(("paraDescription"));
+                Products p = new Products(image, productname, categoryID, brandid, price, description);
+                AdminDAOs dao = new AdminDAOs();
+                int kq = dao.AddNewProduct(p);
+                if (kq != 0) {
+                    response.sendRedirect("/Admin/WareHouse");
+                    request.getSession().setAttribute("success", "Add Product successfully!");
+                } else {
+                    response.sendRedirect("/Admin/AddNewProduct");
+                    request.getSession().setAttribute("error", "Add Product Failed!");
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //===============================================================================================
+        if (request.getParameter("btnSubmitUpdate") != null && request.getParameter("btnSubmitUpdate").equals("Confirm")) {
+            try {
+                int id = Integer.parseInt(request.getParameter("paraProductID"));
+                String image = request.getParameter("paraImage");
+                String productname = request.getParameter("paraProductName");
+                int categoryID = Integer.parseInt(request.getParameter("paraCategoryID"));
+                String brandid = request.getParameter(("paraBrandID"));
+                int price = Integer.parseInt(request.getParameter("paraPrice"));
+                String description = request.getParameter(("paraDescription"));
+                Products p = new Products(id, image, productname, categoryID, brandid, price, description);
+                AdminDAOs dao = new AdminDAOs();
+                int kq = dao.UpdateProduct(p);
+                if (kq != 0) {
+                    response.sendRedirect("/Admin/WareHouse");
+                    request.getSession().setAttribute("success", "Update Successfully!");
+                } else {
+                    response.sendRedirect("/Admin/UpdateProduct");
+                    request.getSession().setAttribute("error", "Update Failed!");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //==========================================================================================
+        if (request.getParameter("btnSubmitAddImportSource") != null && request.getParameter("btnSubmitAddImportSource").equals("Confirm")) {
+            try {
+                int numsize = Integer.parseInt(request.getParameter("paraNumSize"));
+                int productid = Integer.parseInt(request.getParameter("paraProductID"));
+                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
+                ImportSource ip = new ImportSource(numsize, productid, quantity);
+                AdminDAOs dao = new AdminDAOs();
+                int kq = dao.AddNewImportSource(ip);
+                if (kq != 0) {
+                    request.getSession().setAttribute("success", "Import Successfully!");
+                    response.sendRedirect("/Admin/ImportSource");
+                    
+                } else {
+                    response.sendRedirect("/Admin/AddNewImportSource");
+                    request.getSession().setAttribute("error", "Import Failed!");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //============================================================================================
+        if (request.getParameter("btnSubmitUpdateImportSource") != null && request.getParameter("btnSubmitUpdateImportSource").equals("Confirm")) {
+            try {
+                int sizeid = Integer.parseInt(request.getParameter("paraSizeID"));
+                int numsize = Integer.parseInt(request.getParameter("paraNumSize"));
+                int productid = Integer.parseInt(request.getParameter("paraProductID"));
+                int quantity = Integer.parseInt(request.getParameter("paraQuantity"));
+                ImportSource ip = new ImportSource(sizeid, numsize, productid, quantity);
+                AdminDAOs dao = new AdminDAOs();
+                int kq = dao.UpdateImportSource(ip);
+                if (kq != 0) {
+                    response.sendRedirect("/Admin/ImportSource");
+                    request.getSession().setAttribute("success", "Update Successfully!");
+                } else {
+                    response.sendRedirect("/Admin/UpdateImportSource");
+                    request.getSession().setAttribute("error", "Update Successfully!");
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

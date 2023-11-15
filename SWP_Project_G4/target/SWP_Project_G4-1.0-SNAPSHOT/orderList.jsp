@@ -3,13 +3,17 @@
     Created on : Oct 17, 2023, 4:39:35 PM
     Author     : HP
 --%>
-
+<%@page import="Models.Account"%>
+<%@page import="DAOs.AccountDAO"%>
 <%@page import="DAOs.AdminDAOs"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <jsp:include page="head.jsp">
+            <jsp:param name="title" value="Admin"/>
+        </jsp:include>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Navbar với Bootstrap</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -22,7 +26,11 @@
 
     </head>
     <body>
-
+        <%
+            AccountDAO accDAO = new AccountDAO();
+            String username = (String) request.getSession().getAttribute("acc");
+            Account acc = accDAO.GetAccountUser(username);
+        %>
         <div class="container-fluid myheader">
             <div class="row">
                 <div class="col-md-2">
@@ -34,16 +42,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-8 mt-1 shope-inform">
-                    <div class="row">
-                        <div class="col-md-3 py-3 inform" style="border-radius: 10px; border: 1px solid black;">PRODUCT</div>
-                        <div class="col-md-3 py-3 inform" style="border-radius: 10px; border: 1px solid black;">PRODUCT</div>
-                        <div class="col-md-3 py-3 inform" style="border-radius: 10px; border: 1px solid black;">PRODUCT</div>
-                        <div class="col-md-3 py-3 inform" style="border-radius: 10px; border: 1px solid black;">PRODUCT</div>
-                    </div>
-                </div>
 
-                <div class="col-md-2">
+
+                <div class="col-md-2" style="margin-left: 800px">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
@@ -51,7 +52,7 @@
                                     <i class="fa-solid fa-user fa-xl mt-md-4"></i>
                                 </div>
                                 <div class="col-md-8 py-3">
-                                    <a href="link-to-profile-page">Name</a>
+                                    <a><%= acc.getUsername()%></a>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +62,7 @@
                                     <i class="fa-solid fa-right-from-bracket fa-xl mt-md-4"></i>
                                 </div>
                                 <div class="col-md-8 py-3">
-                                    <a href="link-to-logout-page">Logout</a>
+                                    <a href="/Login">Logout</a>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +80,7 @@
                                 <i class="fa-solid fa-house fa-xl" style="padding-top: 18px;"></i>
                             </div>
                             <div class="col-md-9 py-2">
-                                <a href="link-to-home-page">Home</a>
+                                <a href="/Admin/WareHouse">WareHouse</a>
                             </div>
                         </div>
                         <div class="row-3">
@@ -87,7 +88,7 @@
                                 <i class="fa-solid fa-user fa-xl" style="padding-top: 18px; padding-left: 3px;"></i>
                             </div>
                             <div class="col-md-9 py-2">
-                                <a href="/AdminController/userList">User List</a>
+                                <a href="/Admin/userList">User List</a>
                             </div>
                         </div>
                         <div class="row-3">
@@ -95,7 +96,7 @@
                                 <i class="fa-solid fa-cart-shopping fa-xl" style="padding-top: 18px;"></i>
                             </div>
                             <div class="col-md-9 py-2">
-                                <a href="/AdminController/orderList">Order List</a>
+                                <a href="/Admin">Order List</a>
                             </div>
                         </div>
                         <div class="row-3">
@@ -103,7 +104,7 @@
                                 <i class="fa-solid fa-industry fa-xl" style="padding-top: 18px; padding-left: 2px;"></i>
                             </div class="import">
                             <div class="col-md-9 py-2">
-                                <a href="link-to-import-source">Import Source</a>
+                                <a href="/Admin/ImportSource">Import Source</a>
                             </div>
                         </div>
                     </div>
@@ -112,8 +113,7 @@
                 <div class="col-md-10">
                     <div class="add-search-feature">
                         <div class="row add-search-control">
-                            <div class="col-md-8 d-flex">
-                                <button class="mb-1" style="border-radius: 10px;"> Add New+</button>
+                            <div class="col-md-8 d-flex">                               
                                 <div class=" show-proper mt-2">
                                     <p class="show-proper-p">Show</p>
                                     <div class="show-proper-select">
@@ -151,15 +151,15 @@
                             <!-- Header của bảng -->
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>OrderID</th>
                                     <th>Date</th>
                                     <th>Address</th>
                                     <th>Phone</th>
-                                    <th>Product</th>
-                                    <th>Price</th>                      
-                                    <th>DeliveryDate</th>
+                                    <th>Total Price</th>                      
+                                    <th>Delivery Date</th>
                                     <th>Status</th>
-                                    <th>Active</th>
+                                    <th></th>
+                                    <th>AccountID</th>
                                 </tr>
                             </thead>
                             <tbody id="table-body">
@@ -171,22 +171,21 @@
                                     ResultSet rs = dao.GetAllOrder();
                                     while (rs.next()) {
                                 %>
-
                                 <tr>                                   
-                                    <td><%= rs.getInt("ID")%></td>
-                                    <td><%= rs.getDate("Date")%></td>
+                                    <td><%= rs.getInt("OrderID")%></td>
+                                    <td><%= rs.getDate("OrderDate")%></td>
                                     <td><%= rs.getString("Address")%></td>
                                     <td><%= rs.getString("Phone")%></td>
-                                    <td><%= rs.getString("Product")%></td>
-                                    <td><%= rs.getInt("Price")%></td>
+                                    <td><%= rs.getInt("TotalPrice")%></td>
                                     <td><%= rs.getDate("DeliveryDate")%></td>
                                     <td><%= rs.getString("Status")%></td>
                                     <td class="d-flex">                                 
-                                        <a class="fa-solid fa-trash fa-xl mr-2 mt-2 " href="/AdminController/deleteOrder/<%= rs.getInt("ID")%>"
+                                        <a onclick="return confirm('Are you sure to delete?')" class="fa-solid fa-trash fa-xl mr-2 mt-2 " href="/Admin/deleteOrder/<%= rs.getInt("OrderID")%>"
                                            style="color: black;"></a>
-                                        <a class="fa-solid fa-pen-to-square fa-xl mt-2 " href="/AdminController/updateOrder/<%= rs.getInt("ID")%>"
+                                        <a class="fa-solid fa-pen-to-square fa-xl mt-2 " href="/Admin/updateOrder/<%= rs.getInt("OrderID")%>"
                                            style="color: black;"></a>
                                     </td>
+                                    <td><%= rs.getInt("AccountID")%></td>
                                     <!-- Ô trống -->
                                 </tr>
                                 <%
@@ -198,20 +197,22 @@
 
 
 
-                    <footer>
-                        <div class="pagination" style="display: flex; justify-content: center; align-items: center;">
-                            <button id="prevPage" style="margin-right: 10px; border-radius: 8px; border: 1px solid black;">Previous</button>
-                            <div class="page-numbers" style="display: flex; align-items: center;">
-                                <button class="page-number">1</button>
-                                <button class="page-number">2</button>
-                                <button class="page-number">3</button>
-                            </div>
-                            <button id="nextPage" style="margin-left: 10px; border-radius: 8px; border: 1px solid black;">Next</button>
-                        </div>
-                    </footer>
+
                 </div>
             </div>
+
         </div>
+
+        <script>
+            // Đợi 5 giây trước khi xóa div
+            setTimeout(function () {
+                var messageDiv = document.getElementById('message');
+                message
+                Div.parentNode.removeChild(messageDiv);
+            }, 5000);
+        </script>
         <script src="<%out.print(request.getContextPath());%>/public/assets/js/adminOrderList.js"></script>
+        <%@include file="foot.jsp" %>
+        <%@include file="popUpMessage.jsp" %>
     </body>
 </html>

@@ -3,7 +3,7 @@ package DAOs;
 import Models.Account;
 import Models.ImportSource;
 import Models.Order;
-import Models.Product;
+import Models.Products;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,7 +24,7 @@ public class AdminDAOs {
     public ResultSet GetAllOrder() {
         ResultSet rs = null;
         try {
-            String sql = "Select * From OrderList";
+            String sql = "Select * From [Order]";
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
         } catch (SQLException ex) {
@@ -46,7 +46,7 @@ public class AdminDAOs {
     }
 
     public int Delete(int id) {
-        String sql = "delete from OrderList where id=?";
+        String sql = "delete from [Order] where id=?";
         int ketqua = 0;
 
         try {
@@ -60,7 +60,7 @@ public class AdminDAOs {
     }
 
     public Order GetOrder(int id) {
-        String sql = "Select * From OrderList where OrderID=?";
+        String sql = "Select * From [Order] where OrderID=?";
         Order od = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -76,14 +76,14 @@ public class AdminDAOs {
     }
 
     public Account GetAccount(int id) {
-        String sql = "Select * From Account where Account_ID=?";
+        String sql = "Select * From Account where AccountID=?";
         Account acc = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                acc = new Account(rs.getInt("Account_ID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
+                acc = new Account(rs.getInt("AccountID"), rs.getString("avatar"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getDate("birthday"), rs.getInt("role"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,7 +92,7 @@ public class AdminDAOs {
     }
 
     public int DeleteAccount(int id) {
-        String sql = "delete from Account where Account_ID=?";
+        String sql = "delete from Account where AccountID=?";
         int ketqua = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class AdminDAOs {
 
     public int UpdateAccount(Account newacc) {
         int ketqua = 0;
-        String sql = "update Account set avatar=?, username=?, password=?, email=?, firstName=?, lastName=?, gender=?, birthday=?, role=? where Account_ID=?";
+        String sql = "update Account set avatar=?, username=?, password=?, email=?, firstName=?, lastName=?, gender=?, birthday=?, role=? where AccountID=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, newacc.getAvatar());
@@ -128,7 +128,7 @@ public class AdminDAOs {
 
     public int UpdateOrder(Order newod) {
         int ketqua = 0;
-        String sql = "update OrderList set OrderDate=?, Address=?, Phone=?, TotalPrice=?, DeliveryDate=?, Status=? where OrderID=?";
+        String sql = "update [Order] set OrderDate=?, Address=?, Phone=?, TotalPrice=?, DeliveryDate=?, Status=? where OrderID=?";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, (Date) newod.getDate());
@@ -165,14 +165,12 @@ public class AdminDAOs {
         }
         return kq;
     }
-<<<<<<< HEAD
-}
-=======
+//=======================================================================================================
 
     public ResultSet GetAllProduct() throws ClassNotFoundException {
         ResultSet rs = null;
         try {
-            String sql = "Select * From Product";
+            String sql = "Select * From Products";
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
         } catch (SQLException ex) {
@@ -184,7 +182,7 @@ public class AdminDAOs {
     public int DeleteProduct(int ID) {
         int ketqua = 0;
         try {
-            PreparedStatement ps = conn.prepareStatement("delete from Product where ID=?");
+            PreparedStatement ps = conn.prepareStatement("delete from Products where ProductID=?");
             ps.setInt(1, ID);
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -193,18 +191,17 @@ public class AdminDAOs {
         return ketqua;
     }
 
-    public int AddNewProduct(Product pro) {
-        String sql = "insert into Product values(?, ?, ?, ?, ?, ?, ?)";
+    public int AddNewProduct(Products pro) {
+        String sql = "insert into Products values(?, ?, ?, ?, ?, ?)";
         int ketqua = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, pro.getID());
+            ps.setString(1, pro.getImage());
             ps.setString(2, pro.getProductName());
-            ps.setString(3, pro.getBrand());
-            ps.setString(4, pro.getColor());
-            ps.setInt(5, pro.getSize());
-            ps.setInt(6, pro.getQuantity());
-            ps.setInt(7, pro.getPrice());
+            ps.setInt(3, pro.getCategoryID());
+            ps.setString(4, pro.getBrandID());
+            ps.setInt(5, pro.getPrice());
+            ps.setString(6, pro.getDescription());
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,18 +209,18 @@ public class AdminDAOs {
         return ketqua;
     }
 
-    public int UpdateProduct(Product pro) {
-        String sql = "update Product set ProductName=?, Brand=?, Color=?, Size=?, Quantity=?, Price=? where ID=?";
+    public int UpdateProduct(Products pro) {
+        String sql = "update Products set Image=?, ProductName=?, CategoryID=?, BrandID=?, Price=?, Description=? where ProductID=?";
         int ketqua = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, pro.getProductName());
-            ps.setString(2, pro.getBrand());
-            ps.setString(3, pro.getColor());
-            ps.setInt(4, pro.getSize());
-            ps.setInt(5, pro.getQuantity());
-            ps.setInt(6, pro.getPrice());
-            ps.setInt(7, pro.getID());
+            ps.setString(1, pro.getImage());
+            ps.setString(2, pro.getProductName());
+            ps.setInt(3, pro.getCategoryID());
+            ps.setString(4, pro.getBrandID());
+            ps.setInt(5, pro.getPrice());
+            ps.setString(6, pro.getDescription());
+            ps.setInt(7, pro.getProductID());
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -231,15 +228,15 @@ public class AdminDAOs {
         return ketqua;
     }
 
-    public Product GetProduct(int ID) {
-        String sql = "Select * From Product where ID=?";
-        Product pr = null;
+    public Products GetProducts(int ID) {
+        String sql = "Select * From Products where ProductID=?";
+        Products pr = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, ID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                pr = new Product(rs.getInt("ID"), rs.getString("ProductName"), rs.getString("Brand"), rs.getString("Color"), rs.getInt("Size"), rs.getInt("Quantity"), rs.getInt("Price"), rs.getString("Picture"));
+                pr = new Products(rs.getInt("ProductID"), rs.getString("Image"), rs.getString("ProductName"), rs.getInt("CategoryID"), rs.getString("BrandID"), rs.getInt("Price"), rs.getString("Description"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -247,10 +244,12 @@ public class AdminDAOs {
         return pr;
     }
 
-    public ResultSet GetImportSource() throws ClassNotFoundException {
+   //========================================================================================================================
+
+ public ResultSet GetImportSource() throws ClassNotFoundException {
         ResultSet rs = null;
         try {
-            String sql = "Select * From ImportSource";
+            String sql = "Select * From Size";
             PreparedStatement ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
         } catch (SQLException ex) {
@@ -259,31 +258,14 @@ public class AdminDAOs {
         return rs;
     }
 
-    public int DeleteImportSource(int ID) {
-        int ketqua = 0;
-        try {
-            PreparedStatement ps = conn.prepareStatement("delete from ImportSource where ID=?");
-            ps.setInt(1, ID);
-            ketqua = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ketqua;
-    }
-
     public int AddNewImportSource(ImportSource ip) {
-        String sql = "insert into ImportSource values(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into Size values(?, ?, ?)";
         int ketqua = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, ip.getID());
-            ps.setString(2, ip.getProductName());
-            ps.setString(3, ip.getBrand());
-            ps.setString(4, ip.getColor());
-            ps.setInt(5, ip.getSize());
-            ps.setInt(6, ip.getQuantity());
-            ps.setInt(7, ip.getPrice());
-            ps.setDate(8, (Date) ip.getDateBuy());
+            ps.setInt(1, ip.getNumSize());
+            ps.setInt(2, ip.getProductID());
+            ps.setInt(3, ip.getQuantity());
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -292,18 +274,14 @@ public class AdminDAOs {
     }
 
     public int UpdateImportSource(ImportSource ip) {
-        String sql = "update ImportSource set ProductName=?, Brand=?, Color=?, Size=?, Quantity=?, Price=?, DateBuy=? where ID=?";
+        String sql = "update Size set NumSize=?, ProductID=?, Quantity=? where SizeID=?";
         int ketqua = 0;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, ip.getProductName());
-            ps.setString(2, ip.getBrand());
-            ps.setString(3, ip.getColor());
-            ps.setInt(4, ip.getSize());
-            ps.setInt(5, ip.getQuantity());
-            ps.setInt(6, ip.getPrice());
-            ps.setDate(7, (Date) ip.getDateBuy());
-            ps.setInt(8, ip.getID());
+            ps.setInt(1, ip.getNumSize());
+            ps.setInt(2, ip.getProductID());
+            ps.setInt(3, ip.getQuantity());
+            ps.setInt(4, ip.getSizeID());
             ketqua = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,20 +289,56 @@ public class AdminDAOs {
         return ketqua;
     }
 
-    public ImportSource GetImportSource(int ID) {
-        String sql = "Select * From ImportSource where ID=?";
+    public int DeleteImportSource(int SizeID) {
+        int ketqua = 0;
+        try {
+            PreparedStatement ps = conn.prepareStatement("delete from Size where SizeID=?");
+            ps.setInt(1, SizeID);
+            ketqua = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ketqua;
+    }
+
+    public ImportSource GetImportSource(int SizeID) {
+        String sql = "Select * From Size where SizeID=?";
         ImportSource ip = null;
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, ID);
+            ps.setInt(1, SizeID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                ip = new ImportSource(rs.getInt("ID"), rs.getString("ProductName"), rs.getString("Brand"), rs.getString("Color"), rs.getInt("Size"), rs.getInt("Quantity"), rs.getInt("Price"), rs.getDate("DateBuy"));
+                ip = new ImportSource(rs.getInt("SizeID"), rs.getInt("NumSize"), rs.getInt("ProductID"), rs.getInt("Quantity"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAOs.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ip;
     }
+
+    public static void main(String[] args) throws Exception {
+        // Tạo đối tượng AdminDAOs với kết nối cơ sở dữ liệu
+        AdminDAOs dao = new AdminDAOs();
+
+        // Tạo đối tượng Products với thông tin cần cập nhật
+        Products product = new Products();
+        product.setProductID(1);  // Thay đổi giá trị tương ứng
+        product.setImage("new_image_url");
+        product.setProductName("New Product Name");
+        product.setCategoryID(2);  // Thay đổi giá trị tương ứng
+        product.setBrandID("New Brand ID");
+        product.setPrice(50);  // Thay đổi giá trị tương ứng
+        product.setDescription("New Description");
+
+        // Gọi hàm UpdateProduct để cập nhật sản phẩm
+        int result = dao.UpdateProduct(product);
+
+        if (result > 0) {
+            System.out.println("Cập nhật sản phẩm thành công!");
+        } else {
+            System.out.println("Cập nhật sản phẩm thất bại!");
+        }
+    }
+
 }
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0

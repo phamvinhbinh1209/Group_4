@@ -61,12 +61,8 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
+
         String path = request.getRequestURI();
-=======
-     
-      String path = request.getRequestURI();
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
         if (path.endsWith("/SignUp")) {
             request.getRequestDispatcher("/signup.jsp").forward(request, response);
         }
@@ -93,7 +89,6 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         if (request.getParameter("btnRegister") != null && !request.getParameter("btnRegister").equals("Submit")) {
             try {
                 String username = request.getParameter("username");
@@ -106,23 +101,21 @@ public class SignUpController extends HttpServlet {
                 AccountDAO accDao = new AccountDAO();
 
                 if (accDao.isUserExist(username)) {
-<<<<<<< HEAD
-                    request.setAttribute("error", "Username Has Already Existed!");
+                    request.getSession().setAttribute("error", "Username Has Already Existed!");
                     request.getRequestDispatcher("/signup.jsp").forward(request, response);
-=======
-                    request.setAttribute("wrong", "Username Has Already Existed!");
-                    response.sendRedirect("/SignUp");
->>>>>>> c3635680a5b28eeaa1ee286cbe680ef5d9cf5bd0
-
+                }
+                if (accDao.isEmailExist(email)) {
+                    request.getSession().setAttribute("error", "Email Has Already Existed!");
+                    request.getRequestDispatcher("/signup.jsp").forward(request, response);
                 } else {
                     accDAO.signUp(null, username, password, email, firstName, lastName, null, birthday, 0);
+                    request.getSession().setAttribute("success", "Sign up successfully!");
                     response.sendRedirect("/Login");
                 }
             } catch (Exception e) {
                 // TODO: handle exception
             }
         }
-
     }
 
     /**
